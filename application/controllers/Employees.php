@@ -14,7 +14,7 @@ class Employees extends CI_Controller {
         $customer_data = $this->EmployeesModel->get_all_employees();
         $data = array('data' => array('page_title' => 'Technicians', 'customer_data' => $customer_data));
         
-        $this->load->view('customers/all-employees', $data);
+        $this->load->view('employees/all-employees', $data);
     }
 
     public function create_customers(){
