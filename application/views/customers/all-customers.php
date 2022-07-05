@@ -1,6 +1,6 @@
 <?php 
 /*
- * View Ticket Template
+ * View Ticket Templatee
 */
 
 $this->load->view('common/header', $data);
