@@ -25,7 +25,7 @@ date_default_timezone_set('Africa/Gaborone');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost:1010/ticket-management-system';
+$config['base_url'] = 'http://maridd-tms.purecss.co.in';
 
 /*
 |--------------------------------------------------------------------------
