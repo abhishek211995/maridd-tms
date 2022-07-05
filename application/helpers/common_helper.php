@@ -294,3 +294,24 @@ function get_ticket_status($status){
     return $status_html;
 
 }
+
+function get_user_status_html($user_status){
+
+    switch ($user_status) {
+        case '1':
+            $status_html = '<span class="badge badge-success">Active</span>';
+            break;
+        case '2':
+            $status_html = '<span class="badge badge-warning">Deactive</span>';
+            break;
+        case '0':
+            $status_html = '<span class="badge badge-warning">Deleted</span>';
+            break;
+        
+        default:
+            $status_html = '<span class="badge badge-success">Active</span>';
+            break;
+    }
+
+    return $status_html;
+}
