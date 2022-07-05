@@ -111,7 +111,7 @@ function get_sidebar_menus(){
                     ),
                     array(
                         'menu_item' => 'Employees',
-                        'menu_link' => 'dashboard/employees',
+                        'menu_link' => 'dashboard/all-employees',
                         'menu_icon' => '',
                         'custom_link' => '',
                         'submenu' => array()
