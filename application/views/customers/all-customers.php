@@ -14,10 +14,13 @@ $this->load->view('common/header', $data);
     <div class="app-content main-content">
         <div class="side-app">
             <?php $this->load->view('common/dashboard-navigation'); ?>
-            <div class="page-header d-xl-flex d-block">
+            <div class="page-header d-xl-flex d-block justify-content-between">
                 <div class="page-leftheader">
                     <h4 class="page-title"><span
                             class="font-weight-normal text-muted ms-2"><?php echo $data['page_title']; ?></span></h4>
+                </div>
+                <div class="page-rightheader">
+                <a href="" class="btn btn-green">Add Customer</a>
                 </div>
             </div>
             <div class="row">
@@ -34,9 +37,10 @@ $this->load->view('common/header', $data);
                         <div class="card ">
                             <div class="card-header border-0">
                                 <h4 class="card-title"> Customers</h4>
+                                
                             </div>
                             <div class="card-body">
-                                <table class="datatableInt table table-vcenter table-responsive text-nowrap table-bordered table-striped w-100">
+                                <table class="datatableInt table table-vcenter text-nowrap table-bordered table-striped w-100">
                                     <thead>
                                         <tr>
                                             <th>Sr No</th>
@@ -57,16 +61,16 @@ $this->load->view('common/header', $data);
                                         ?>
                                         <tr>
                                             <td><?php echo $i ?></td>
+                                            <td><?php echo $c_data->user_id ?></td>
                                             <td><?php echo $c_data->user_first_name.' '.$c_data->user_last_name; ?></td>
                                             <td><?php echo $c_data->user_email; ?></td>
                                             <td><?php echo $c_data->user_phone ?></td>
                                             <td><?php echo get_user_status_html($c_data->user_status) ?></td>
-                                            <td><?php echo date('d-m-Y h:i:s', $ticket_data->added_date); ?></td>
-                                            <td><?php echo get_ticket_status($ticket_data->status); ?></td>
+                                            <td><?php echo date('d-m-Y h:i:s', $c_data->added_date); ?></td>
                                             <td>
                                                 <div class="flex action-items">
-                                                    <a href="<?php echo base_url() ?>dashboard/ticket/<?php echo $ticket_data->id.'/'.$ticket_data->ticket_id ?>"><i class="fa fa-edit"></i></a>
-                                                    <a href="<?php echo base_url() ?>dashboard/ticket/<?php echo $ticket_data->id.'/'.$ticket_data->ticket_id ?>"><i class="fa fa-eye"></i></a>
+                                                    <a href="<?php echo base_url() ?>dashboard/ticket/<?php echo $c_data->user_id ?>"><i class="fa fa-edit"></i></a>
+                                                    <a href="<?php echo base_url() ?>dashboard/ticket/<?php echo $c_data->user_id ?>"><i class="fa fa-eye"></i></a>
                                                     <a href="#"><i class="fa fa-trash"></i></a>
                                                 </div>
                                             </td>

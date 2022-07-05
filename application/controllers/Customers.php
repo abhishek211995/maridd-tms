@@ -7,11 +7,11 @@ class Customers extends CI_Controller {
     {
         parent::__construct();
 
-        $this->load->model('CustomersModel');
+        $this->load->model('CustomerModel');
     }
 
     public function index(){
-        $customer_data = $this->CustomersModel->get_all_customers();
+        $customer_data = $this->CustomerModel->get_all_customers();
         $data = array('data' => array('page_title' => 'Customers', 'customer_data' => $customer_data));
         
         $this->load->view('customers/all-customers', $data);
