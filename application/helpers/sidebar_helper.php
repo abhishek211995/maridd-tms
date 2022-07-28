@@ -110,7 +110,7 @@ function get_sidebar_menus(){
                         'submenu' => array()
                     ),
                     array(
-                        'menu_item' => 'Employees',
+                        'menu_item' => 'Technicians',
                         'menu_link' => 'dashboard/all-employees',
                         'menu_icon' => '',
                         'custom_link' => '',
