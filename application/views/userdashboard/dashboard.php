@@ -24,9 +24,9 @@ $user_details = tm_get_current_user();
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="alert alert-danger">
+                <!--<div class="alert alert-danger">
                     You have not verified your account yet. Please verify your account to continue
-                </div>
+                </div>-->
                 <div class="card">
                     <div class="card-header border-0">
                         <h4 class="card-title">Welcome Back <?php echo $user_details->user_first_name; ?> 😊</h4>
@@ -36,6 +36,8 @@ $user_details = tm_get_current_user();
                     </div>
                 </div>
             </div>
+
+            <!--
             <div class="col-xl-3 col-md-4 col-sm-6">
                 <div class="card">
                     <a href="https://uhelp.spruko.com/uhelp/admin/alltickets" class="admintickets"></a>
@@ -171,7 +173,7 @@ $user_details = tm_get_current_user();
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 
