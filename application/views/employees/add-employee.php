@@ -21,12 +21,6 @@ $this->load->view('common/header', $data);
                 </div>
             </div>
             <div class="row">
-                <?php 
-                    $user_details = tm_get_current_user();
-
-                    $customers = get_customer_list();
-                ?>
-
                     <div class="col-xl-12 col-lg-12 col-md-12">
                         <div class="card ">
                             <div class="card-header border-0">

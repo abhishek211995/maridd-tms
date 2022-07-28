@@ -18,7 +18,7 @@ class Employees extends CI_Controller {
     }
 
     public function create_employee(){
-        $data = array('data' => array('page_title' => 'Add Technicians', 'customer_data' => $customer_data));
+        $data = array('data' => array('page_title' => 'Add Technicians'));
         
         $this->load->view('employees/add-employee', $data);
     }
