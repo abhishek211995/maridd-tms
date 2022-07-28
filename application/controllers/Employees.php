@@ -17,15 +17,17 @@ class Employees extends CI_Controller {
         $this->load->view('employees/all-employees', $data);
     }
 
-    public function create_customers(){
+    public function create_employee(){
+        $data = array('data' => array('page_title' => 'Add Technicians', 'customer_data' => $customer_data));
         
+        $this->load->view('employees/add-employee', $data);
     }
 
-    public function edit_customer(){
+    public function edit_employee(){
 
     }
 
-    public function delete_customer(){
+    public function delete_employee(){
         
     }
 }

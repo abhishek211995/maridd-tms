@@ -20,7 +20,7 @@ $this->load->view('common/header', $data);
                             class="font-weight-normal text-muted ms-2"><?php echo $data['page_title']; ?></span></h4>
                 </div>
                 <div class="page-rightheader">
-                <a href="" class="btn btn-green">Add Employee</a>
+                <a href="<?php echo  base_url(); ?>dashboard/create-employee" class="btn btn-green">Add Technicians</a>
                 </div>
             </div>
             <div class="row">
@@ -36,7 +36,7 @@ $this->load->view('common/header', $data);
                     <div class="col-xl-12 col-lg-12 col-md-12">
                         <div class="card ">
                             <div class="card-header border-0">
-                                <h4 class="card-title"> Employees</h4>
+                                <h4 class="card-title"> Technicians</h4>
                                 
                             </div>
                             <div class="card-body">

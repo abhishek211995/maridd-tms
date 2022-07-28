@@ -120,7 +120,7 @@ class Authentication extends CI_Controller {
             'user_password' => password_hash($user_password, PASSWORD_DEFAULT),
             'is_verified' => 0,
             'user_status' => 0,
-            'user_role' => 1,
+            'user_role' => 'customer',
             'added_date' => $added_date
         );
 
