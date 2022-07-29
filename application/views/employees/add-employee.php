@@ -44,7 +44,27 @@ $this->load->view('common/header', $data);
 												<label class="form-label mb-0 mt-2">Technician Email <span class="text-red">*</span></label>
 											</div>
 											<div class="col-md-9">
-												<input type="text" id="technician_email" required class="form-control " placeholder="Technician Email" name="technician_email" value="">
+												<input type="email" id="technician_email" required class="form-control " placeholder="Technician Email" name="technician_email" value="">
+											</div>
+										</div>
+									</div>
+                                    <div class="form-group ">
+									    <div class="row">
+											<div class="col-md-3">
+												<label class="form-label mb-0 mt-2">Technician Phone Number <span class="text-red">*</span></label>
+											</div>
+											<div class="col-md-9">
+												<input type="email" id="technician_phone_number" required class="form-control " placeholder="Technician Phone Number" name="technician_phone_number" value="">
+											</div>
+										</div>
+									</div>
+                                    <div class="form-group ">
+									    <div class="row">
+											<div class="col-md-3">
+												<label class="form-label mb-0 mt-2">Technician Company <span class="text-red">*</span></label>
+											</div>
+											<div class="col-md-9">
+												<input type="email" id="technician_company" required class="form-control " placeholder="Technician Company" name="technician_company" value="">
 											</div>
 										</div>
 									</div>
