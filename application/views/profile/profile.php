@@ -58,12 +58,6 @@ $this->load->view('common/header', $data);
                                     <tbody>
                                         <tr>
                                             <td class="py-2">
-                                                <span class="font-weight-semibold w-50"> Employee ID</span>
-                                            </td>
-                                            <td class="py-2 ps-4"><?php echo $user_details->emp_id ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="py-2">
                                                 <span class="font-weight-semibold w-50"> Name </span>
                                             </td>
                                             <td class="py-2 ps-4"><?php echo $user_details->user_first_name.' '.$user_details->user_last_name ?></td>
@@ -147,13 +141,6 @@ $this->load->view('common/header', $data);
                                             <div class="form-group">
                                                 <label class="form-label"> Email address <span class="text-red">*</span></label>
                                                 <input type="email" class="form-control" name="user_email" required value="<?php echo $user_details->user_email ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label"> Employee ID <span class="text-red">*</span></label>
-                                                <input type="text" class="form-control" name="emp_id" required disabled="" value="<?php echo $user_details->emp_id ?>">
-
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6">
