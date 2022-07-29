@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
         submitHandler: function(form) {
 
             jQuery.ajax({
-                url: localized_data.ajax_url+'authentication/processlogin',
+                url: localized_data.ajax_url+'Authentication/processlogin',
                 type: "POST",          
                 dataType: "json",
                 beforeSend: function () {
@@ -61,7 +61,7 @@ jQuery(document).ready(function(){
         submitHandler: function(form) {
 
             jQuery.ajax({
-                url: localized_data.ajax_url+'authentication/process_user_registration',
+                url: localized_data.ajax_url+'Authentication/process_user_registration',
                 type: "POST",          
                 dataType: "json",
                 beforeSend: function () {
@@ -105,7 +105,7 @@ jQuery(document).ready(function(){
             var formData = new FormData(form);
             console.log(formData);
             jQuery.ajax({
-                url: localized_data.ajax_url+'userprofile/update_profile',
+                url: localized_data.ajax_url+'UserProfile/update_profile',
                 type: "POST",          
                 dataType: "json",
                 contentType: false,
@@ -148,7 +148,7 @@ jQuery(document).ready(function(){
             var formData = new FormData(form);
             console.log(formData);
             jQuery.ajax({
-                url: localized_data.ajax_url+'userprofile/update_password',
+                url: localized_data.ajax_url+'UserProfile/update_password',
                 type: "POST",          
                 dataType: "json",
                 contentType: false,
@@ -190,7 +190,7 @@ jQuery(document).ready(function(){
             var formData = new FormData(form);
             console.log(formData);
             jQuery.ajax({
-                url: localized_data.ajax_url+'tickets/process_create_ticket',
+                url: localized_data.ajax_url+'Tickets/process_create_ticket',
                 type: "POST",          
                 dataType: "json",
                 contentType: false,
@@ -234,7 +234,7 @@ jQuery(document).ready(function(){
             var formData = new FormData(form);
             console.log(formData);
             jQuery.ajax({
-                url: localized_data.ajax_url+'tickets/process_ticket_chat',
+                url: localized_data.ajax_url+'Tickets/process_ticket_chat',
                 type: "POST",          
                 dataType: "json",
                 contentType: false,
@@ -276,7 +276,7 @@ jQuery(document).ready(function(){
         submitHandler: function(form) {
 
             jQuery.ajax({
-                url: localized_data.ajax_url+'tickets/set_ticket_priority',
+                url: localized_data.ajax_url+'Tickets/set_ticket_priority',
                 type: "POST",          
                 dataType: "json",
                 beforeSend: function () {
@@ -318,7 +318,7 @@ jQuery(document).ready(function(){
         submitHandler: function(form) {
 
             jQuery.ajax({
-                url: localized_data.ajax_url+'tickets/set_ticket_category',
+                url: localized_data.ajax_url+'Tickets/set_ticket_category',
                 type: "POST",          
                 dataType: "json",
                 beforeSend: function () {
@@ -358,7 +358,7 @@ jQuery(document).ready(function(){
         submitHandler: function(form) {
 
             jQuery.ajax({
-                url: localized_data.ajax_url+'tickets/assign_ticket_to_emp',
+                url: localized_data.ajax_url+'Tickets/assign_ticket_to_emp',
                 type: "POST",          
                 dataType: "json",
                 beforeSend: function () {
