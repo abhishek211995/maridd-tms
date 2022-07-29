@@ -402,7 +402,7 @@ jQuery(document).ready(function(){
         submitHandler: function(form) {
 
             jQuery.ajax({
-                url: localized_data.ajax_url+'authentication/process_user_registration',
+                url: localized_data.ajax_url+'Employees/process_create_employee',
                 type: "POST",          
                 dataType: "json",
                 beforeSend: function () {
