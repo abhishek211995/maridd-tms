@@ -388,3 +388,47 @@ jQuery(document).ready(function(){
         },
     });
 });
+
+/*========================================================================
+REGISTER TECHNICIAN
+==========================================================================*/
+
+/*==========================================================
+USER REGISTRATION FORM VALIDATION
+==========================================================*/
+
+jQuery(document).ready(function(){
+    jQuery("#createemployee").validate({
+        submitHandler: function(form) {
+
+            jQuery.ajax({
+                url: localized_data.ajax_url+'authentication/process_user_registration',
+                type: "POST",          
+                dataType: "json",
+                beforeSend: function () {
+                    jQuery("#addtechnician").html("<i class='bx bx-loader-alt bx-spin'></i>");
+                    jQuery("#addtechnician").attr('disabled', 'disabled');
+                },
+                complete: function (response) {
+                    jQuery("#addtechnician").html("Register");
+                    jQuery("#addtechnician").removeAttr('disabled', 'disabled');
+                },
+                data: jQuery('#createemployee').serialize(),
+                success: function(data) {
+                    //jQuery('.csrfname').val(localized_data.csrf_tms_name);
+
+                    if(data.status == 1){
+                        toastify(data.msg, 'success', 10000);
+                        $("#createemployee")[0].reset();
+                        
+                    } else {
+                        toastify(data.msg, 'danger', 10000);
+                    }
+                    document.getElementById("csrfname").value = data.hash;
+                }
+            });
+            return false;
+        },
+        
+    });
+});

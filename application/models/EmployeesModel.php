@@ -9,4 +9,9 @@ class EmployeesModel extends CI_Model {
 
         return $this->db->get()->result();
     }
+
+    public function register_technician($data){
+        $this->db->insert('tms_users', $data);
+        return array('status' => 1,'msg' => 'Registration Successfull. Redirecting. Please Wait...');
+    }
 }

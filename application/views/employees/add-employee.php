@@ -28,13 +28,23 @@ $this->load->view('common/header', $data);
                             </div>
                             <form id="createemployee" method="post">
                                 <div class="card-body">
-                                    <div class="form-group ">
+                                    <div class="form-group">
 									    <div class="row">
 											<div class="col-md-3">
-												<label class="form-label mb-0 mt-2">Technician Name <span class="text-red">*</span></label>
+												<label class="form-label mb-0 mt-2">Technician First Name <span class="text-red">*</span></label>
 											</div>
 											<div class="col-md-9">
-												<input type="text" id="technician_name" required class="form-control " placeholder="Technician Name" name="technician_name" value="">
+												<input type="text" id="technician_first_name" required class="form-control " placeholder="Technician Name" name="technician_first_name" value="">
+											</div>
+										</div>
+									</div>
+                                    <div class="form-group">
+									    <div class="row">
+											<div class="col-md-3">
+												<label class="form-label mb-0 mt-2">Technician Last Name <span class="text-red">*</span></label>
+											</div>
+											<div class="col-md-9">
+												<input type="text" id="technician_last_name" required class="form-control " placeholder="Technician Last Name" name="technician_last_name" value="">
 											</div>
 										</div>
 									</div>
@@ -81,7 +91,7 @@ $this->load->view('common/header', $data);
                                 </div>
                                 <div class="card-footer text-end">
                                     <input type="hidden" id="csrfname" class="csrfname" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
-                                    <button type="submit" id="updateprofilebtn" class="btn btn-secondary">Add Technician</button>
+                                    <button type="submit" id="addtechnician" class="btn btn-secondary">Add Technician</button>
                                 </div>
                             </form>
                         </div>
