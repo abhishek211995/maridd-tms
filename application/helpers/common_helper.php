@@ -166,7 +166,7 @@ function tms_upload_files($path = '', $allowed_files = '', $max_size = '', $file
     }
     else{
         $upload_data = $ci->upload->data();
-        $server_path = $_SERVER['DOCUMENT_ROOT'].'/ticket-management-system/';
+        $server_path = $_SERVER['DOCUMENT_ROOT'].'/';
         $url_path = str_replace($server_path, '', $upload_data['full_path']);
 
         resizeImage($upload_data['file_name'], $upload_data['file_path'], $upload_data['full_path']);
@@ -228,15 +228,28 @@ FUNCTION TO GET CUSTOMER LIST
 
 function get_customer_list(){
     $ci = & get_instance();
-    $query = $ci->db->get_where('tms_users', array('user_role' => 'customer'));
+    $query = $ci->db->get_where('tms_users', array('user_role' => 'user'));
     return $query->result();
+}
+
+function get_customer_details($user_id){
+    $ci = & get_instance();
+    $query = $ci->db->get_where('tms_users', array('user_role' => 'user', 'user_id' => $user_id));
+    return $query->row();
 }
 
 function get_employee_list(){
     $ci = & get_instance();
-    $query = $ci->db->get_where('tms_users', array('user_role' => 'employee'));
+    $query = $ci->db->get_where('tms_users', array('user_role' => 'technician'));
     return $query->result();
 }
+
+function get_employee_details($user_id){
+    $ci = & get_instance();
+    $query = $ci->db->get_where('tms_users', array('user_role' => 'technician', 'user_id' => $user_id));
+    return $query->row();
+}
+
 
 function get_ticket_priority($priority){
     
@@ -314,4 +327,27 @@ function get_user_status_html($user_status){
     }
 
     return $status_html;
+}
+
+
+/*========================================================================
+FUNCTION TO SEND EMAIL
+=========================================================================*/
+
+function send_email($to = '', $from = '', $subject = '', $body = ''){
+
+    $ci = & get_instance();
+
+    $from_email = (!empty($from)) ? $from : "helpdesk@purecss.co.in";
+    $to_email = $to;
+    //Load email library
+    $ci->load->library('email');
+    $ci->email->from($from_email, 'Maridd Telecom HelpDesk');
+    $ci->email->to($to_email);
+    $ci->email->subject('Ticket ID MTN20220730_11 - Maridd Telecom HelpDesk');
+    $ci->email->message('The email send using codeigniter library');
+    //Send mail
+    if($ci->email->send()){
+        return true;
+    }
 }

@@ -70,7 +70,7 @@ $this->load->view('common/header', $data);
                                                 <div class="flex action-items">
                                                     <a href="<?php echo base_url() ?>dashboard/ticket/<?php echo $ticket_data->id.'/'.$ticket_data->ticket_id ?>"><i class="fa fa-edit"></i></a>
                                                     <a href="<?php echo base_url() ?>dashboard/ticket/<?php echo $ticket_data->id.'/'.$ticket_data->ticket_id ?>"><i class="fa fa-eye"></i></a>
-                                                    <a href="#"><i class="fa fa-trash"></i></a>
+                                                    <!--<a href="#"><i class="fa fa-trash"></i></a>-->
                                                 </div>
                                             </td>
                                         </tr>

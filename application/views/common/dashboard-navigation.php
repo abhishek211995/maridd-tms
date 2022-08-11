@@ -19,9 +19,9 @@ $user_details = tm_get_current_user();
                 </a>
             </div>
             <div class="header-buttons-main">
-                <a class="btn btn-outline-light header-buttons text-center"
-                    href="<?php echo base_url(); ?>createticket"><i
-                        class="fa fa-paper-plane-o pe-lg-2"></i><span class="d-m-none">Create Ticket</span></a>
+                <!--<a class="btn btn-outline-light header-buttons text-center"
+                    href="<?php echo base_url(); ?>dashboard/ticket/create-ticket"><i
+                        class="fa fa-paper-plane-o pe-lg-2"></i><span class="d-m-none">Create Ticket</span></a>-->
 
             </div><!-- SEARCH -->
             <div class="d-flex order-lg-2 ml-auto dropdown-container align-items-center">

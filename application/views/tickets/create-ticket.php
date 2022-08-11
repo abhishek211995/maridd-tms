@@ -47,16 +47,16 @@ $this->load->view('common/header', $data);
                                     <?php
                                     
                                     $user = tm_get_current_user();
-                                    if($user->user_role == 'superadmin'){
+                                    if($user->user_role == 'superadmin' || $user->user_role == 'technician'){
                                     ?>
                                     <div class="form-group ">
 									    <div class="row">
 											<div class="col-md-3">
-												<label class="form-label mb-0 mt-2">Select Customer <span class="text-red">*</span></label>
+												<label class="form-label mb-0 mt-2">Select User <span class="text-red">*</span></label>
 											</div>
 											<div class="col-md-9">
 												<select class="form-control select-2-int" name="ticket_user" required>
-                                                    <option value="">Select Customer</option>
+                                                    <option value="">Select User</option>
                                                     <?php foreach($customers as $customer){ ?>
                                                         <option value="<?php echo $customer->user_id ?>"><?php echo $customer->user_first_name.' '.$customer->user_last_name.' ('.$customer->user_email.')'; ?></option>
                                                     <?php } ?>

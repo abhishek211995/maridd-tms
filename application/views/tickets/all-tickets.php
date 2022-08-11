@@ -36,6 +36,7 @@ $this->load->view('common/header', $data);
                                 <h4 class="card-title"> All Tickets</h4>
                             </div>
                             <div class="card-body">
+                                <?php if(!empty($data['ticket_data'])){ ?>
                                 <table class="datatableInt table table-vcenter table-responsive text-nowrap table-bordered table-striped w-100">
                                     <thead>
                                         <tr>
@@ -70,7 +71,7 @@ $this->load->view('common/header', $data);
                                                 <div class="flex action-items">
                                                     <a href="<?php echo base_url() ?>dashboard/ticket/<?php echo $ticket_data->id.'/'.$ticket_data->ticket_id ?>"><i class="fa fa-edit"></i></a>
                                                     <a href="<?php echo base_url() ?>dashboard/ticket/<?php echo $ticket_data->id.'/'.$ticket_data->ticket_id ?>"><i class="fa fa-eye"></i></a>
-                                                    <a href="#"><i class="fa fa-trash"></i></a>
+                                                    <!--<a href="#"><i class="fa fa-trash"></i></a>-->
                                                 </div>
                                             </td>
                                         </tr>
@@ -79,6 +80,11 @@ $this->load->view('common/header', $data);
                                     } ?>
                                     </tbody>
                                 </table>
+                                <?php } else{ ?>
+                                    <div class="alert alert-danger">
+                                        Oops ! No tickets available. Please try submitting a ticket.
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

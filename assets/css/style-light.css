@@ -28,7 +28,7 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
   ========================================================================== */
 
   :root {
-    --primary: #3366FF;
+    --primary: #2A3A8D;
     --secondary: #263871;
     --primary-dark: #184780;
     --heading-color: #263871;
@@ -94,7 +94,7 @@ body {
     font-family: 'Roboto', sans-serif;
     color: var(--text-color);
   }
-body.app {background-color: #f1f4fb;}
+body.app {background-color: #F6F7FB;}
   
   /**
     * Render the `main` element consistently in IE.
@@ -3917,6 +3917,10 @@ body.app {background-color: #f1f4fb;}
     }
     .app .app-sidebar .app-sidebar3 {
       margin-top: 0;
+      top: 0;
+      left: 0;
+      position: fixed;
+      z-index: 99999;
     }
     .app .app-sidebar__overlay {
       visibility: hidden;
@@ -3926,6 +3930,8 @@ body.app {background-color: #f1f4fb;}
     }
     .app.sidenav-toggled .app-sidebar {
       left: 0;
+      background-color: #fff !important;
+      z-index: 9999;
     }
     .app.sidenav-toggled .app-sidebar__overlay {
       visibility: visible;
@@ -3940,7 +3946,7 @@ body.app {background-color: #f1f4fb;}
   }
   
   .app-content {
-    margin-top: 5%;
+    margin-top: 3%;
     overflow: hidden;
     transition: margin-left 0.2s ease;
   }
@@ -4004,10 +4010,10 @@ body.app {background-color: #f1f4fb;}
     display: flex;
     z-index: 999;
     padding-right: 15px;
-    padding: 1rem 0;
+    padding: 0.1rem 0;
     transition: padding-left 0.2s ease;
     border-bottom: 1px solid #ebedfa;
-    background: #fff;
+    background: var(--primary);
     box-shadow: 0px 6px 18px rgba(196, 205, 224, 0.1);
   }
   
@@ -4049,7 +4055,7 @@ body.app {background-color: #f1f4fb;}
     position: relative;
     border-radius: 8px;
     line-height: 2;
-    background: #f1f4fb;
+    /* background: #f1f4fb; */
     justify-content: center;
     height: 45px;
     width: 45px;
@@ -4100,11 +4106,12 @@ body.app {background-color: #f1f4fb;}
     left: 0;
     width: 270px;
     z-index: 1000;
-    background: #17263a;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0px 6px 18px rgba(196, 205, 224, 0.2);
+    background: #ffffff;
+    border-right: 1px solid rgb(239 229 229);
+    /* box-shadow: 0px 6px 18px rgba(196, 205, 224, 0.2); */
     transition: left 0.2s ease, width 0.2s ease;
-  overflow: scroll;}
+    /* overflow: scroll; */
+    }
   .app-sidebar::-webkit-scrollbar {
     width: 6px;
   }
@@ -4136,7 +4143,7 @@ body.app {background-color: #f1f4fb;}
     align-items: center;
     color: #aab3cc;
     width: 100%;
-    padding: 25px 20px;
+    /* padding: 25px 20px; */
     display: inline-block;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
@@ -4302,7 +4309,7 @@ body.app {background-color: #f1f4fb;}
   .side-menu__label {
     white-space: nowrap;
     flex: 1 1 auto;
-    font-weight: 400;
+    font-weight: 500;
   }
   
   .slide.is-expanded .slide-menu {
@@ -4337,7 +4344,7 @@ body.app {background-color: #f1f4fb;}
   }
   
   .app-sidebar__user .user-info h5 {
-    color: #fff;
+    color: #000;
     font-weight: 500;
     margin-bottom: 3px !important;
   }
@@ -4722,17 +4729,20 @@ body.app {background-color: #f1f4fb;}
     }
   }
   .app-sidebar__logo {
-    padding: 1.2rem 15px;
+    padding: 0.5rem 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    height: 87px;
+    height: 49px;
     text-align: center;
     position: fixed;
     width: 270px;
     transition: left 0.2s ease, width 0.2s ease;
-  background-color: #17263a;z-index: 9999999;}
+    background-color: var(--primary);
+    z-index: 9999999;
+    }
 .app-sidebar__logo img{
-  width: 90px;
-filter: brightness(0) invert(1);}
+  width: 50px;
+  filter: brightness(0) invert(1);
+  }
   
   .close-toggle {
     display: none;
@@ -4741,7 +4751,8 @@ filter: brightness(0) invert(1);}
   .app-sidebar__toggle a i {
     line-height: 1.3;
     margin-top: 0;
-    font-size: 22px;
+    font-size: 30px;
+    color: #fff;
   }
   
   .sidenav-toggled .close-toggle {
@@ -4802,7 +4813,7 @@ filter: brightness(0) invert(1);}
     }
   }
   .app-sidebar .app-sidebar3 {
-    margin-top: 88px;
+    margin-top: 66px;
     padding-bottom: 88px;
   }
   
@@ -4949,14 +4960,14 @@ filter: brightness(0) invert(1);}
   }
   
   .side-menu .slide a {
-    color: #aab3cc;
+    color: #2e2e2e;
     background: none;
   }
   
   .side-menu .sidemenu_icon {
     font-size: 1.05rem;
     color: #aab3cc;
-    fill: #aab3cc !important;
+    fill: var(--primary) !important;
     margin-right: 0.6rem;
     width: 20px;
     height: 20px;
@@ -5115,8 +5126,9 @@ DASHBOARD CARDS CSS
   margin-bottom: 1.5rem;
   width: 100%;
   border: 0;
-  box-shadow: 0 0.15rem 1.75rem 0 rgba(196, 205, 224, 0.2);
+  box-shadow: 0 0.15rem 0.2rem 0 rgb(196 205 224 / 20%);
   border-radius: 13px;
+  border: 1px solid #ddd;
 }
 .card > hr {
   margin-right: 0;
@@ -5412,6 +5424,8 @@ DASHBOARD CARDS CSS
   letter-spacing: 0.01rem;
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
+  color: #000;
+  font-weight: 600;
 }
 .card-title a {
   color: inherit;
@@ -6096,7 +6110,7 @@ a.card-tabs-item.active {
     font-weight: bold !important;
   }
 
-  .page-header {margin-bottom: 30px;margin-top: 30px;}
+  .page-header {/* margin-bottom: 30px; *//* margin-top: 30px; */}
   
 /*=============================================================
   Alerts
@@ -6294,7 +6308,7 @@ hr.message-inner-separator {
   top: 0.5rem;
   left: 0.75rem;
 }
-.user-initials {background-color: #ff9800;width: 45px;height: 45px;display: inline-flex;align-items: center;justify-content: center;border-radius: 50%;color: #fff;font-weight: 600;font-size: 16px;letter-spacing: 2px;}
+.user-initials {background-color: #ffffff;width: 35px;height: 35px;display: inline-flex;align-items: center;justify-content: center;border-radius: 50%;color: #673ab7;font-weight: 600;font-size: 16px;letter-spacing: 2px;}
 
 .close {
   font-size: 1rem;
@@ -7348,3 +7362,7 @@ table.dataTable td {
   width: 1px;
   white-space: nowrap;
   }
+.page-title span {
+    font-weight: 700 !important;
+    color: #000 !important;
+}

@@ -39,7 +39,7 @@ $this->load->view('common/header', $data);
                                 <div class="pro-user mt-3">
                                     <h5 class="pro-user-username text-dark mb-1 fs-16"><?php echo $user_details->user_first_name ?></h5>
                                     <h6 class="pro-user-desc text-muted fs-12"><?php echo $user_details->user_email ?></h6>
-                                    <h6 class="pro-user-desc text-muted fs-12"><?php echo $user_details->user_role ?></h6>
+                                    <h6 class="pro-user-desc text-muted fs-12"><?php echo ucfirst($user_details->user_role) ?></h6>
                                     <!--<div class="btn-list">
                                         <a href="#" class="btn btn-secondary mt-3">Edit Profile</a>
                                     </div>-->
@@ -67,7 +67,7 @@ $this->load->view('common/header', $data);
                                                 <span class="font-weight-semibold w-50"> Role </span>
                                             </td>
                                             <td class="py-2 ps-4">
-                                                <?php echo $user_details->user_role; ?>
+                                                <?php echo ucfirst($user_details->user_role); ?>
                                             </td>
                                         </tr>
                                         <tr>
@@ -82,7 +82,7 @@ $this->load->view('common/header', $data);
                                             </td>
                                             <td class="py-2 ps-4"><?php echo $user_details->user_phone; ?></td>
                                         </tr>
-                                        <tr>
+                                        <!--<tr>
                                             <td class="py-2">
                                                 <span class="font-weight-semibold w-50"> Languages </span>
                                             </td>
@@ -103,7 +103,7 @@ $this->load->view('common/header', $data);
                                                     <li class="tag mb-1"></li>
                                                 </ul>
                                             </td>
-                                        </tr>
+                                        </tr>-->
                                         <tr>
                                             <td class="py-2">
                                                 <span class="font-weight-semibold w-50"> Location </span>
@@ -143,7 +143,7 @@ $this->load->view('common/header', $data);
                                                 <input type="email" class="form-control" name="user_email" required value="<?php echo $user_details->user_email ?>">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6">
+                                        <!--<div class="col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label">Gender <span class="text-red">*</span></label>
                                                 <select class="form-control select2" name="user_gender" required>
@@ -152,19 +152,19 @@ $this->load->view('common/header', $data);
                                                     <option value="Female" <?php echo ($user_details->user_gender == "Female") ? 'selected' : ''; ?>> Female</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <div class="col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label"> Mobile Number</label>
                                                 <input type="text" required class="form-control " name="user_phone" value="<?php echo $user_details->user_phone ?>">
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-md-6">
+                                        <!--<div class="col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label"> Languages</label>
                                                 <input type="text" class="form-control" value="<?php echo $user_details->user_language; ?>" name="user_languages">
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <div class="col-sm-6 col-md-6">
                                             <div class="form-group">
                                                 <label class="form-label"> Address</label>

@@ -14,13 +14,10 @@ $this->load->view('common/header', $data);
     <div class="app-content main-content">
         <div class="side-app">
             <?php $this->load->view('common/dashboard-navigation'); ?>
-            <div class="page-header d-xl-flex d-block justify-content-between">
+            <div class="page-header d-xl-flex d-block">
                 <div class="page-leftheader">
                     <h4 class="page-title"><span
                             class="font-weight-normal text-muted ms-2"><?php echo $data['page_title']; ?></span></h4>
-                </div>
-                <div class="page-rightheader">
-                <a href="<?php echo base_url(); ?>dashboard/create-customer" class="btn btn-green">Add Customer</a>
                 </div>
             </div>
             <div class="row">
@@ -36,18 +33,18 @@ $this->load->view('common/header', $data);
                     <div class="col-xl-12 col-lg-12 col-md-12">
                         <div class="card ">
                             <div class="card-header border-0">
-                                <h4 class="card-title"> Customers</h4>
-                                
+                                <h4 class="card-title"> All Tickets</h4>
                             </div>
                             <div class="card-body">
-                                <table class="datatableInt table table-vcenter text-nowrap table-bordered table-striped w-100">
+                                <table class="datatableInt table table-vcenter table-responsive text-nowrap table-bordered table-striped w-100">
                                     <thead>
                                         <tr>
                                             <th>Sr No</th>
                                             <th>#ID</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone Number</th>
+                                            <th>User</th>
+                                            <th>Title</th>
+                                            <th>Priority</th>
+                                            <th>Category</th>
                                             <th>Created Date</th>
                                             <th>Status</th>
                                             <th>Actions</th>
@@ -56,21 +53,23 @@ $this->load->view('common/header', $data);
                                     <tbody>
                                         <?php 
                                         $i = 1;
-                                        foreach($data['customer_data'] as $c_data){ 
+                                        foreach($data['ticket_data'] as $ticket_data){ 
+                                            $user_details = tm_get_current_user($ticket_data->user);
                                             
                                         ?>
                                         <tr>
                                             <td><?php echo $i ?></td>
-                                            <td><?php echo $c_data->user_id ?></td>
-                                            <td><?php echo $c_data->user_first_name.' '.$c_data->user_last_name; ?></td>
-                                            <td><?php echo $c_data->user_email; ?></td>
-                                            <td><?php echo $c_data->user_phone ?></td>
-                                            <td><?php echo get_user_status_html($c_data->user_status) ?></td>
-                                            <td><?php echo date('d-m-Y h:i:s', $c_data->added_date); ?></td>
+                                            <td><?php echo $ticket_data->ticket_id ?></td>
+                                            <td><?php echo $user_details->user_first_name.' '.$user_details->user_last_name; ?></td>
+                                            <td><?php echo $ticket_data->ticket_title ?></td>
+                                            <td><?php echo get_ticket_priority($ticket_data->ticket_priority) ?></td>
+                                            <td><?php echo $ticket_data->ticket_category ?></td>
+                                            <td><?php echo date('d-m-Y h:i:s', $ticket_data->added_date); ?></td>
+                                            <td><?php echo get_ticket_status($ticket_data->status); ?></td>
                                             <td>
                                                 <div class="flex action-items">
-                                                    <a href="<?php echo base_url() ?>dashboard/edit-customer/<?php echo $c_data->user_id ?>"><i class="fa fa-edit"></i></a>
-                                                    <a href="<?php echo base_url() ?>dashboard/edit-customer/<?php echo $c_data->user_id ?>"><i class="fa fa-eye"></i></a>
+                                                    <a href="<?php echo base_url() ?>dashboard/ticket/<?php echo $ticket_data->id.'/'.$ticket_data->ticket_id ?>"><i class="fa fa-edit"></i></a>
+                                                    <a href="<?php echo base_url() ?>dashboard/ticket/<?php echo $ticket_data->id.'/'.$ticket_data->ticket_id ?>"><i class="fa fa-eye"></i></a>
                                                     <a href="#"><i class="fa fa-trash"></i></a>
                                                 </div>
                                             </td>

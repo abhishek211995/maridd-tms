@@ -394,7 +394,7 @@ REGISTER TECHNICIAN
 ==========================================================================*/
 
 /*==========================================================
-USER REGISTRATION FORM VALIDATION
+EMPLOYEE REGISTRATION FORM VALIDATION
 ==========================================================*/
 
 jQuery(document).ready(function(){
@@ -420,6 +420,94 @@ jQuery(document).ready(function(){
                     if(data.status == 1){
                         toastify(data.msg, 'success', 10000);
                         $("#createemployee")[0].reset();
+                        setTimeout(function(){ 
+                            window.location.href = localized_data.ajax_url+'/dashboard/all-employees';
+                        }, 2000);
+                        
+                    } else {
+                        toastify(data.msg, 'danger', 10000);
+                    }
+                    document.getElementById("csrfname").value = data.hash;
+                }
+            });
+            return false;
+        },
+        
+    });
+});
+
+
+jQuery(document).ready(function(){
+    jQuery("#editemployee").validate({
+        submitHandler: function(form) {
+
+            jQuery.ajax({
+                url: localized_data.ajax_url+'Employees/process_edit_employee',
+                type: "POST",          
+                dataType: "json",
+                beforeSend: function () {
+                    jQuery("#edittechnician").html("<i class='bx bx-loader-alt bx-spin'></i>");
+                    jQuery("#edittechnician").attr('disabled', 'disabled');
+                },
+                complete: function (response) {
+                    jQuery("#edittechnician").html("Register");
+                    jQuery("#edittechnician").removeAttr('disabled', 'disabled');
+                },
+                data: jQuery('#editemployee').serialize(),
+                success: function(data) {
+                    //jQuery('.csrfname').val(localized_data.csrf_tms_name);
+
+                    if(data.status == 1){
+                        toastify(data.msg, 'success', 10000);
+                        setTimeout(function(){ 
+                            window.location.href = localized_data.ajax_url+'/dashboard/all-employees';
+                        }, 2000);
+                        
+                    } else {
+                        toastify(data.msg, 'danger', 10000);
+                    }
+                    document.getElementById("csrfname").value = data.hash;
+                }
+            });
+            return false;
+        },
+        
+    });
+});
+
+
+
+/*==========================================================
+USER REGISTRATION FORM VALIDATION
+==========================================================*/
+
+
+jQuery(document).ready(function(){
+    jQuery("#adduser").validate({
+        submitHandler: function(form) {
+
+            jQuery.ajax({
+                url: localized_data.ajax_url+'Customers/process_edit_customer',
+                type: "POST",          
+                dataType: "json",
+                beforeSend: function () {
+                    jQuery("#adduserbtn").html("<i class='bx bx-loader-alt bx-spin'></i>");
+                    jQuery("#adduserbtn").attr('disabled', 'disabled');
+                },
+                complete: function (response) {
+                    jQuery("#adduserbtn").html("Register");
+                    jQuery("#adduserbtn").removeAttr('disabled', 'disabled');
+                },
+                data: jQuery('#adduser').serialize(),
+                success: function(data) {
+                    //jQuery('.csrfname').val(localized_data.csrf_tms_name);
+
+                    if(data.status == 1){
+                        toastify(data.msg, 'success', 10000);
+                        $("#adduser")[0].reset();
+                        setTimeout(function(){ 
+                            window.location.href = localized_data.ajax_url+'/dashboard/all-customers';
+                        }, 2000);
                         
                     } else {
                         toastify(data.msg, 'danger', 10000);

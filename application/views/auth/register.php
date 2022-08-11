@@ -6,6 +6,7 @@
 //print_r($data);
 
 $this->load->view('common/header', $data);
+
 ?>
 
 <section class="login-section d-flex align-items-center">
@@ -50,6 +51,8 @@ $this->load->view('common/header', $data);
                                 </label>
                             </div>
                             <div class="submit">
+                                <input type="hidden" name="user_role" value="<?php echo (!isset($_GET['role']) || $_GET['role'] == '') ? 'user' : 'technician'; ?>">
+                                <input type="hidden" name="company_id" value="<?php echo (!isset($_GET['company']) || $_GET['company'] == '') ? 0 : 1; ?>">
                                 <input type="hidden" id="csrfname" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
                                 <button class="btn btn-secondary btn-block" type="submit" name="submit" id="registrationBtn" value="Register">Register</button>
                             </div>

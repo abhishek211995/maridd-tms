@@ -19,7 +19,7 @@ $user_details = tm_get_current_user();
             <div class="dropdown user-pro-body text-center">
                 <div class="user-pic">
                     <?php if(empty($user_details->user_image)){ ?>
-                    <img src="../assets/images/common/user-profile.png"
+                    <img src="<?php echo base_url() ?>/assets/images/common/user-profile-image.png"
                         class="avatar-xxl rounded-circle mb-1" alt="default">
                     <?php } else { ?>
                     <img src="<?php echo base_url().$user_details->user_image ?>"

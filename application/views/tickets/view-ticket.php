@@ -42,8 +42,8 @@ $this->load->view('common/header', $data);
                                             <?php echo get_ticket_status($ticket_data->status); ?>
                                         </div>
                                     </div>
-                                    <small class="fs-13"><i class="fa fa-clock-o text-muted mr-1"></i>Last
-                                        Updated on <span class="text-muted">24 minutes ago</span></small>
+                                    <!--<small class="fs-13"><i class="fa fa-clock-o text-muted mr-1"></i>Last
+                                        Updated on <span class="text-muted">24 minutes ago</span></small>-->
                                 </div>
                                 <div class="card-body pt-2 readmores px-6 mx-1">
                                     <?php 
@@ -67,6 +67,7 @@ $this->load->view('common/header', $data);
                                 </div>
                                 <form method="POST" action="" id="ticket_view_form" enctype="multipart/form-data">
                                     <div class="card-body status">
+                                        <?php if($ticket_data->status !== 'Solved'){ ?>
                                         <div class="form-group">
                                             <textarea class="summernote form-control " rows="6" cols="100"
                                                 name="ticket_chat" aria-multiline="true"></textarea>
@@ -78,26 +79,53 @@ $this->load->view('common/header', $data);
                                             <small class="text-muted"><i>The file size should not be more than
                                                     36MB</i></small>
                                         </div>
+                                        <?php } ?>
                                         <div class="form-group">
+
+                                        <?php 
+                                        /*echo "<pre>";
+                                        print_r($ticket_data);
+                                        echo "</pre>";*/
+                                        ?>
+
                                             <div class="custom-controls-stacked d-md-flex" id="text">
                                                 <label class="form-label mt-1 mr-5">Status</label>
+                                                <?php if($ticket_data->status !== 'Solved'){ ?>
                                                 <label class="custom-control form-radio mr-4">
 
                                                     <input type="radio" class="custom-control-input hold" name="ticket_status"
-                                                        value="Inprogress" checked="" autocomplete="off">
+                                                        value="active" <?php echo ($ticket_data->status == 'active') ? 'checked' : ''; ?> autocomplete="off">
+                                                    <span class="custom-control-label">Active</span>
+
+                                                </label>
+                                                <label class="custom-control form-radio mr-4">
+
+                                                    <input type="radio" class="custom-control-input hold" name="ticket_status"
+                                                        value="Inprogress" <?php echo ($ticket_data->status == 'Inprogress') ? 'checked' : ''; ?> autocomplete="off">
                                                     <span class="custom-control-label">Inprogress</span>
 
                                                 </label>
                                                 <label class="custom-control form-radio mr-4">
                                                     <input type="radio" class="custom-control-input hold" name="ticket_status"
-                                                        value="Solved" autocomplete="off">
+                                                        value="Solved" <?php echo ($ticket_data->status == 'Solved') ? 'checked' : ''; ?> autocomplete="off">
                                                     <span class="custom-control-label">Solved</span>
                                                 </label>
                                                 <label class="custom-control form-radio mr-4">
                                                     <input type="radio" class="custom-control-input" name="ticket_status"
-                                                        id="onhold" value="On-Hold" autocomplete="off">
+                                                        id="onhold" value="On-Hold" <?php echo ($ticket_data->status == 'On-Hold') ? 'checked' : ''; ?> autocomplete="off">
                                                     <span class="custom-control-label">On-Hold</span>
                                                 </label>
+                                                <?php } else { ?>
+                                                    <label class="custom-control form-radio mr-4">
+
+                                                    <input type="radio" class="custom-control-input hold" name="ticket_status"
+                                                        value="active" <?php echo ($ticket_data->status == 'active') ? 'checked' : ''; ?> autocomplete="off">
+                                                    <span class="custom-control-label">Re-Open Ticket</span>
+
+                                                    </label>
+
+                                                    <small class="text-primary"><strong>This ticket is solved. If you think that your issue is still not solved you can Re-Open the ticket again</strong></small>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -190,13 +218,16 @@ $this->load->view('common/header', $data);
                                                     <td>
 
                                                         <span class="font-weight-semibold"><?php echo $ticket_data->ticket_category; ?></span>
-
+                                                        <?php if(get_current_user_role() == 'superadmin' || get_current_user_role() == 'admin'){ ?>
+                                                        <?php if($ticket_data->status !== 'Solved'){ ?>
                                                         <a href="javascript:void(0)" data-id="SP-5" data-toggle="modal" data-target="#AssignCatModal"
                                                             class="p-1 sprukocategory border border-primary br-7 text-white bg-primary ms-2">
                                                             <i class="fa fa-edit" data-bs-toggle="tooltip"
                                                                 data-bs-placement="top" title=""
                                                                 data-bs-original-title="Change Category"
                                                                 aria-label="Change Category"></i></a>
+                                                                <?php } ?>
+                                                                <?php } ?>
 
 
                                                     </td>
@@ -210,6 +241,8 @@ $this->load->view('common/header', $data);
                                                     <td id="priorityid">
 
                                                         <?php echo get_ticket_priority($ticket_data->ticket_priority); ?>
+                                                        <?php if(get_current_user_role() == 'superadmin' || get_current_user_role() == 'admin'){ ?>
+                                                            <?php if($ticket_data->status !== 'Solved'){ ?>
                                                         <button id="priority" data-toggle="modal" data-target="#AssignPriorityModal"
                                                             class="p-1 border border-primary br-7 text-white bg-primary ms-2">
                                                             <i class="fa fa-edit" data-bs-toggle="tooltip"
@@ -217,6 +250,7 @@ $this->load->view('common/header', $data);
                                                                 data-bs-original-title="Change priority"
                                                                 aria-label="Add priority"></i>
                                                         </button>
+                                                        <?php } } ?>
                                                     </td>
                                                 </tr>
 
@@ -257,8 +291,10 @@ $this->load->view('common/header', $data);
                                     //echo $current_user->user_role;
                                     ?>
                                     <?php 
-                                    if($current_user->user_role == 'superadmin'){
-                                    if(empty($emp_id)) { ?>
+                                    if($current_user->user_role == 'superadmin'){ ?>
+                                    <?php if($ticket_data->status !== 'Solved'){ ?>
+                                        
+                                    <?php if(empty($emp_id)) { ?>
                                         <button data-id="5" id="assigned" class="btn btn-primary my-1" data-toggle="modal" data-target="#AssignEmpModal"
                                             data-bs-toggle="tooltip" data-bs-placement="top" title=""
                                             data-bs-original-title="Assign">
@@ -271,13 +307,17 @@ $this->load->view('common/header', $data);
                                     } else { ?>
                                         <label>Ticket Assigned To:</label><br>
                                         <span class="badge badge-danger"><?php echo $emp_name; ?></span>
-                                    <?php } ?>
+                                    <?php } } ?>
 
                                 </div>
                             </div>
 
                             <!-- Customer Details -->
                             <div class="card">
+                                <?php
+                                $user_id = get_current_user_id();
+                                $customer_details = get_customer_details($ticket_data->user);
+                                ?>
                                 <div class="card-header  border-0">
                                     <div class="card-title">Customer Details</div>
                                 </div>
@@ -293,8 +333,8 @@ $this->load->view('common/header', $data);
 
                                         </div>
                                         <a href="#" class="text-dark">
-                                            <h5 class="mb-1 font-weight-semibold2">Timothy L. Brodbeck</h5>
-                                            <small class="text-muted ">customer@gmail.com
+                                            <h5 class="mb-1 font-weight-semibold2"><?php echo $customer_details->user_first_name.' '.$customer_details->user_last_name ?></h5>
+                                            <small class="text-muted "><?php echo $customer_details->user_email ?>
                                             </small>
                                         </a>
                                     </div>
@@ -303,47 +343,22 @@ $this->load->view('common/header', $data);
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <span class="w-50">Gender</span>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <span class="font-weight-semibold">Male</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="w-50">IP</span>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <span class="font-weight-semibold">72.116.24.36</span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
                                                         <span class="w-50">Mobile Number</span>
                                                     </td>
                                                     <td>:</td>
                                                     <td>
-                                                        <span class="font-weight-semibold">518-639-0662</span>
+                                                        <span class="font-weight-semibold"><?php echo $customer_details->user_phone ?></span>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <span class="w-50">Country</span>
+                                                        <span class="w-50">Company</span>
                                                     </td>
                                                     <td>:</td>
                                                     <td>
-                                                        <span class="font-weight-semibold"></span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <span class="w-50">Timezone</span>
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <span class="font-weight-semibold">UTC</span>
+                                                        <span class="font-weight-semibold">
+                                                            Maridd Telecom
+                                                        </span>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -354,7 +369,7 @@ $this->load->view('common/header', $data);
                             <!-- End Customer Details -->
                             <!--ticke note  -->
 
-                            <?php if(get_current_user_role() == 'superadmin' || get_current_user_role() == 'employee'){ ?>
+                            <?php /*if(get_current_user_role() == 'superadmin' || get_current_user_role() == 'employee'){ ?>
 
                             <div class="card">
                                 <div class="card-header  border-0">
@@ -399,7 +414,7 @@ $this->load->view('common/header', $data);
                                 </div>
                             </div>
 
-                            <?php } ?>
+                            <?php }*/ ?>
 
                             <!-- End ticket note  -->
                         </div>
@@ -417,14 +432,14 @@ $this->load->view('common/header', $data);
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Assign Employee to this Ticket</h4>
+                            <h4 class="modal-title">Assign Technician to this Ticket</h4>
                         </div>
                         <div class="modal-body">
                             <form method="POST" action="" id="assign_ticket_to_emp">
                                 <div class="form-group">
-                                    <label for="selectEmp">Select Employee</label>
+                                    <label for="selectEmp">Select Technician</label>
                                     <select class="form-control" name="emp_id">
-                                        <option value="">Select Employee</option>
+                                        <option value="">Select Technician</option>
                                         <?php
                                             $emp_list = get_employee_list();
                                             foreach($emp_list as $emp){
@@ -436,7 +451,7 @@ $this->load->view('common/header', $data);
                                 </div>
                                 <input type="hidden" name="ticket_id" value="<?php echo $data['ticket_id']; ?>">
                                 <input type="hidden" id="csrfname" class="csrfname" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
-                                <button id="assignempbtn" type="submit" class="btn btn-primary">Assign Employee to Ticket</button>
+                                <button id="assignempbtn" type="submit" class="btn btn-primary">Assign Technician to Ticket</button>
                             </form>
                         </div>
                         <div class="modal-footer">

@@ -75,6 +75,10 @@ class Authentication extends CI_Controller {
         $last_name = $this->input->post('last_name');
         $user_email = $this->input->post('user_email');
         $user_password = $this->input->post('user_password');
+
+        $user_role = $this->input->post('user_role');
+        $user_company = $this->input->post('company_id');
+
         $added_date = get_time_stamp();
         $username = strtolower($first_name.$last_name);
 
@@ -119,14 +123,20 @@ class Authentication extends CI_Controller {
             'user_email' => $user_email,
             'user_password' => password_hash($user_password, PASSWORD_DEFAULT),
             'is_verified' => 0,
-            'user_status' => 0,
-            'user_role' => 'customer',
+            'user_status' => 1,
+            'user_role' => $user_role,
+            'company_id' => $user_company,
             'added_date' => $added_date
         );
 
         $result = $this->AuthenticationModel->register_user($data);
 
         echo return_response($result);
+
+        if($result['status'] == 1){
+            send_email($to = 'abhirpotdar@gmail.com', $from = '', $subject = '', $body = '');
+        }
+
         die();
     }
 

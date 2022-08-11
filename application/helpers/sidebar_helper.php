@@ -60,7 +60,7 @@ function get_sidebar_menus(){
                         'submenu' => array()
                     ),
                     array(
-                        'menu_item' => 'Closed Tickets',
+                        'menu_item' => 'Solved Tickets',
                         'menu_link' => 'dashboard/ticket/closed-tickets',
                         'menu_icon' => '',
                         'custom_link' => '',
@@ -116,13 +116,13 @@ function get_sidebar_menus(){
                         'custom_link' => '',
                         'submenu' => array()
                     ),
-                    array(
+                    /*array(
                         'menu_item' => 'Roles & Permissions',
                         'menu_link' => 'dashboard/roles-permissions',
                         'menu_icon' => '',
                         'custom_link' => '',
                         'submenu' => array()
-                    ),
+                    ),*/
                 )
             ),
             
@@ -133,10 +133,19 @@ function get_sidebar_menus(){
                 'custom_link' => '',
                 'submenu' => array()
             ),
+            
+            array(
+                'menu_item' => 'Logout',
+                'menu_link' => 'authentication/logout',
+                'menu_icon' => '<i class="bx bxs-arrow-to-right me-3 fs-22 my-auto"></i>',
+                'custom_link' => '',
+                'submenu' => array()
+            )
+            
         ),
 
 
-        'employee' => array(
+        'technician' => array(
             array(
                 'menu_item' => 'Dashboard',
                 'menu_link' => 'dashboard/stats',
@@ -161,15 +170,15 @@ function get_sidebar_menus(){
                 </svg>',
                 'custom_link' => '',
                 'submenu' => array(
-                    array(
+                    /*array(
                         'menu_item' => 'Create Tickets',
                         'menu_link' => 'dashboard/ticket/create-ticket',
                         'menu_icon' => '',
                         'custom_link' => '',
                         'submenu' => array()
-                    ),
+                    ),*/
                     array(
-                        'menu_item' => 'All Tickets',
+                        'menu_item' => 'My Tickets',
                         'menu_link' => 'dashboard/ticket/all-tickets',
                         'menu_icon' => '',
                         'custom_link' => '',
@@ -190,7 +199,7 @@ function get_sidebar_menus(){
                         'submenu' => array()
                     ),
                     array(
-                        'menu_item' => 'Closed Tickets',
+                        'menu_item' => 'Solved Tickets',
                         'menu_link' => 'dashboard/ticket/closed-tickets',
                         'menu_icon' => '',
                         'custom_link' => '',
@@ -203,13 +212,6 @@ function get_sidebar_menus(){
                         'custom_link' => '',
                         'submenu' => array()
                     ),*/
-                    array(
-                        'menu_item' => 'My Assigned Tickets',
-                        'menu_link' => 'dashboard/ticket/my-assigned-tickets',
-                        'menu_icon' => '',
-                        'custom_link' => '',
-                        'submenu' => array()
-                    ),
                     array(
                         'menu_item' => 'On-Hold Tickets',
                         'menu_link' => 'dashboard/ticket/onhold-tickets',
@@ -227,23 +229,23 @@ function get_sidebar_menus(){
                 ),
             ),
             array(
-                'menu_item' => 'Users',
-                'menu_link' => 'dashboard/customers',
-                'menu_icon' => '<svg class="sidemenu_icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M9 13.75c-2.34 0-7 1.17-7 3.5V19h14v-1.75c0-2.33-4.66-3.5-7-3.5zM4.34 17c.84-.58 2.87-1.25 4.66-1.25s3.82.67 4.66 1.25H4.34zM9 12c1.93 0 3.5-1.57 3.5-3.5S10.93 5 9 5 5.5 6.57 5.5 8.5 7.07 12 9 12zm0-5c.83 0 1.5.67 1.5 1.5S9.83 10 9 10s-1.5-.67-1.5-1.5S8.17 7 9 7zm7.04 6.81c1.16.84 1.96 1.96 1.96 3.44V19h4v-1.75c0-2.02-3.5-3.17-5.96-3.44zM15 12c1.93 0 3.5-1.57 3.5-3.5S16.93 5 15 5c-.54 0-1.04.13-1.5.35.63.89 1 1.98 1 3.15s-.37 2.26-1 3.15c.46.22.96.35 1.5.35z"></path></svg>',
-                'custom_link' => '',
-                'submenu' => array()
-            ),
-            array(
                 'menu_item' => 'Reports',
                 'menu_link' => 'dashboard/reports',
                 'menu_icon' => '<svg class="sidemenu_icon" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M19.5 3.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2 4.5 3.5 3 2v20l1.5-1.5L6 22l1.5-1.5L9 22l1.5-1.5L12 22l1.5-1.5L15 22l1.5-1.5L18 22l1.5-1.5L21 22V2l-1.5 1.5zM19 19.09H5V4.91h14v14.18zM6 15h12v2H6zm0-4h12v2H6zm0-4h12v2H6z"></path></svg>',
                 'custom_link' => '',
                 'submenu' => array()
             ),
+            array(
+                'menu_item' => 'Logout',
+                'menu_link' => 'authentication/logout',
+                'menu_icon' => '',
+                'custom_link' => '',
+                'submenu' => array()
+            )
         ),
 
 
-        'customer' => array(
+        'user' => array(
             array(
                 'menu_item' => 'Dashboard',
                 'menu_link' => 'dashboard/stats',
@@ -290,7 +292,7 @@ function get_sidebar_menus(){
                         'submenu' => array()
                     ),
                     array(
-                        'menu_item' => 'Closed Tickets',
+                        'menu_item' => 'Solved Tickets',
                         'menu_link' => 'dashboard/ticket/closed-tickets',
                         'menu_icon' => '',
                         'custom_link' => '',
@@ -310,6 +312,13 @@ function get_sidebar_menus(){
                         'custom_link' => '',
                         'submenu' => array()
                     ),*/
+                    array(
+                        'menu_item' => 'Logout',
+                        'menu_link' => 'authentication/logout',
+                        'menu_icon' => '',
+                        'custom_link' => '',
+                        'submenu' => array()
+                    )
                 ),
             ),
         )

@@ -58,21 +58,21 @@ class UserProfile extends CI_Controller {
             echo return_response($data);
             die();
         }
-        if(empty($user_gender)){
+        /*if(empty($user_gender)){
             $data = array('status' => 0, 'msg' => 'Please select your Gender');
             echo return_response($data);
             die();
-        }
+        }*/
         if(empty($user_phone)){
             $data = array('status' => 0, 'msg' => 'Please enter your Phone Number');
             echo return_response($data);
             die();
         }
-        if(empty($user_languages)){
+        /*if(empty($user_languages)){
             $data = array('status' => 0, 'msg' => 'Please enter your Languages in comma seperated format');
             echo return_response($data);
             die();
-        }
+        }*/
         if(empty($user_address)){
             $data = array('status' => 0, 'msg' => 'Please enter your address');
             echo return_response($data);

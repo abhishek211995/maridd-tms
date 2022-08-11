@@ -76,8 +76,8 @@ $route['dashboard/ticket/onhold-tickets'] = 'Tickets/onhold_tickets';
 $route['dashboard/ticket/overdue-tickets'] = 'Tickets/overdue_tickets';
 
 $route['dashboard/all-customers'] = 'Customers';
-$route['dashboard/create-customers'] = 'Customers/create_customers';
-$route['dashboard/edit-customers/(:any)'] = 'Customers/edit_customer/$1';
+$route['dashboard/create-customer'] = 'Customers/create_customers';
+$route['dashboard/edit-customer/(:any)'] = 'Customers/edit_customer/$1';
 
 $route['dashboard/all-employees'] = 'Employees';
 $route['dashboard/create-employee'] = 'Employees/create_employee';

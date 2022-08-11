@@ -76,11 +76,11 @@ class TicketsModel extends CI_Model {
     public function get_all_tickets($user_id, $user_role){
         $this->db->select('*');
         $this->db->from('tms_tickets');
-        if($user_role !== 'superadmin' && $user_role !== 'employee'){
+        if($user_role !== 'superadmin' && $user_role !== 'technician'){
             $this->db->where('user', get_current_user_id());
         }
         
-        if($user_role == 'employee'){
+        if($user_role == 'technician'){
             $this->db->where('assigned_employee', get_current_user_id());
         }
 
@@ -111,55 +111,58 @@ class TicketsModel extends CI_Model {
         $result = $this->db->get();
         $ticket_chat_data = $result->row();
 
-        $chat_array = json_decode($ticket_chat_data->ticket_chat);
+        if($data['current_ticket_status'] !== 'Solved'){
+            $chat_array = json_decode($ticket_chat_data->ticket_chat);
 
-        //print_r($chat_array);
-        $ticket_chat_arr = $chat_array->ticket_chats;
+            //print_r($chat_array);
+            $ticket_chat_arr = $chat_array->ticket_chats;
 
-        $file = $data['file'];
-        $file_path = '';
+            $file = $data['file'];
+            $file_path = '';
 
-        if(!empty($_FILES['ticket_attachment']['name'])){
-            $file_id = $file;
-            $file_name = 'ticket_'.$ticket_id.'_'.time();
-            $path = 'uploads/tickets-attachments/';
-            $upload = tms_upload_files($path, $allowed_files = 5000, $max_size = 8000, $file = $file_id, $file_name);
-            if($upload['status'] == 0){
-                $data = array('status' => 0, 'msg' => $upload['msg']);
-                echo return_response($data);
-                die();
+            if(!empty($_FILES['ticket_attachment']['name'])){
+                $file_id = $file;
+                $file_name = 'ticket_'.$ticket_id.'_'.time();
+                $path = 'uploads/tickets-attachments/';
+                $upload = tms_upload_files($path, $allowed_files = 5000, $max_size = 8000, $file = $file_id, $file_name);
+                if($upload['status'] == 0){
+                    $data = array('status' => 0, 'msg' => $upload['msg']);
+                    echo return_response($data);
+                    die();
+                }
+
+                $file_path = $upload['file_path'];
             }
+            
+            $chat_data = array(
+                'user_id' => $data['user_id'],
+                'added_date' => $data['updated_date'],
+                'description' => $data['ticket_chat'],
+                'ticket_attachment' => $file_path
+            );
 
-            $file_path = $upload['file_path'];
+            array_push($ticket_chat_arr, $chat_data);
+
+            /*print_r($ticket_chat_arr);
+            echo json_encode($ticket_chat_arr);
+            die();*/
+
+            $chat_data_final_arr = array(
+                'last_updated' => time(),
+                'ticket_chats' => $ticket_chat_arr
+            );
+
+            $chat_data_final_arr_encoded = json_encode($chat_data_final_arr);
+
+            $updated_data = array(
+                'ticket_chat' => $chat_data_final_arr_encoded
+            );
+
+            
+            $this->db->set($updated_data);
+            $this->db->where('c_ticket_id', $ticket_id);
+            $this->db->update('tms_ticket_chat');
         }
-        
-        $chat_data = array(
-            'user_id' => $data['user_id'],
-            'added_date' => $data['updated_date'],
-            'description' => $data['ticket_chat'],
-            'ticket_attachment' => $file_path
-        );
-
-        array_push($ticket_chat_arr, $chat_data);
-
-        /*print_r($ticket_chat_arr);
-        echo json_encode($ticket_chat_arr);
-        die();*/
-
-        $chat_data_final_arr = array(
-            'last_updated' => time(),
-            'ticket_chats' => $ticket_chat_arr
-        );
-
-        $chat_data_final_arr_encoded = json_encode($chat_data_final_arr);
-
-        $updated_data = array(
-            'ticket_chat' => $chat_data_final_arr_encoded
-        );
-
-        $this->db->set($updated_data);
-        $this->db->where('c_ticket_id', $ticket_id);
-        $this->db->update('tms_ticket_chat');
 
         $this->db->where('id', $ticket_id);
         $this->db->update('tms_tickets', array('status' => $data['ticket_status']));
@@ -206,11 +209,11 @@ class TicketsModel extends CI_Model {
         $this->db->select('*');
         $this->db->from('tms_tickets');
 
-        if($user_role !== 'superadmin' && $user_role !== 'employee'){
+        if($user_role !== 'superadmin' && $user_role !== 'technician'){
             $this->db->where(array('user' => get_current_user_id(), 'status' => $status));
         }
         
-        if($user_role == 'employee'){
+        if($user_role == 'technician'){
             $this->db->where(array('assigned_employee' => get_current_user_id(), 'status' => $status));
         }
 
