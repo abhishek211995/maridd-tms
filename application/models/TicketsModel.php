@@ -87,7 +87,8 @@ class TicketsModel extends CI_Model
         else if($user_role == 'Technician')
         {
             $this->db->where('assigned_employee', get_current_user_id());
-        }else if($user_role == 'Admin' && intval($user_company) > 0)
+        }
+        else if($user_role == 'Admin' && intval($user_company) > 0)
         {
             $this->db->where('company_id', $user_company);
         }
@@ -233,18 +234,15 @@ class TicketsModel extends CI_Model
         {
             $this->db->where(array('user' => get_current_user_id(), 'status' => $status));
         }
-        
-        if($user_role == 'Technician')
+        else if($user_role == 'Technician')
         {
             $this->db->where(array('assigned_employee' => get_current_user_id(), 'status' => $status));
         }
-
-        if($user_role == 'Superadmin')
+        else if($user_role == 'Superadmin')
         {
             $this->db->where(array('status' => $status,'company_id' => 0));
         }
-
-        if($user_role == 'Admin' && intval($user_company) > 0)
+        else if($user_role == 'Admin' && intval($user_company) > 0)
         {
             $this->db->where(array('status' => $status,'company_id' => $user_company));
         }
