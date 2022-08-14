@@ -83,6 +83,11 @@ $route['dashboard/all-employees'] = 'Employees';
 $route['dashboard/create-employee'] = 'Employees/create_employee';
 $route['dashboard/edit-employee/(:any)'] = 'Employees/edit_employee/$1';
 
+$route['dashboard/all-companies'] = 'Company';
+$route['dashboard/create-company'] = 'Company/create_company';
+$route['dashboard/edit-company/(:any)'] = 'Company/edit_company/$1';
+$route['dashboard/view-company/(:any)/(:any)'] = 'Company/view_company/$1/$2';
+
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

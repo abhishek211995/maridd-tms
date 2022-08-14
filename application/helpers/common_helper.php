@@ -58,9 +58,9 @@ CHECK IF EMAIL ALREADY EXISTS WHILE REGISTERING
 ==========================================================*/
 
 function check_if_email_exists($email){
+
     $ci =& get_instance();
     $query = $ci->db->get_where('tms_users', array('user_email' => $email), 1, 0);
-
     if(empty($query->result())){
         return true;
     }
@@ -167,11 +167,12 @@ function tms_upload_files($path = '', $allowed_files = '', $max_size = '', $file
     else{
         $upload_data = $ci->upload->data();
         $server_path = $_SERVER['DOCUMENT_ROOT'].'/';
+        
         $url_path = str_replace($server_path, '', $upload_data['full_path']);
-
+        
         resizeImage($upload_data['file_name'], $upload_data['file_path'], $upload_data['full_path']);
         
-        $data = array('status' => 1,'msg' => 'File Uploaded Successfully', 'upload_data' => $upload_data, 'file_path' => $url_path);
+        $data = array('status' => 1,'msg' => 'File Uploaded Successfully', 'upload_data' => $upload_data, 'file_path' => $upload_data['file_name']);
         return $data;
     }
 }
@@ -226,27 +227,55 @@ function get_ticket_id($id){
 FUNCTION TO GET CUSTOMER LIST
 ====================================================================*/
 
-function get_customer_list(){
+function get_customer_list()
+{
     $ci = & get_instance();
-    $query = $ci->db->get_where('tms_users', array('user_role' => 'user'));
+    $user_company = $ci->session->userdata('user_company');
+    $user_role = $ci->session->userdata('user_role');
+
+    if(intval($user_company) > 0 && $user_role == 'Admin')
+    {
+        $query = $ci->db->get_where('tms_users', array('user_role' => 'User'));
+    }
+    else if($user_role == 'Superadmin')
+    {
+
+        $query = $ci->db->get_where('tms_users', array('user_role' => 'User'));
+    }
+    else
+    {
+        $query = $ci->db->get_where('tms_users', array('user_role ' => ''));
+    }
+
     return $query->result();
 }
 
 function get_customer_details($user_id){
     $ci = & get_instance();
-    $query = $ci->db->get_where('tms_users', array('user_role' => 'user', 'user_id' => $user_id));
+    $query = $ci->db->get_where('tms_users', array('user_role' => 'User', 'user_id' => $user_id));
     return $query->row();
 }
 
-function get_employee_list(){
+function get_employee_list()
+{
     $ci = & get_instance();
-    $query = $ci->db->get_where('tms_users', array('user_role' => 'technician'));
+    $user_company = $ci->session->userdata('user_company');
+    $user_role = $ci->session->userdata('user_role');
+    if($user_role == 'Superadmin')
+    {
+        $query = $ci->db->get_where('tms_users', array('user_role' => 'Technician','company_id' => 0));
+    }
+    else
+    {
+        $query = $ci->db->get_where('tms_users', array('user_role' => 'Technician','company_id' => $user_company));
+    }
+    
     return $query->result();
 }
 
 function get_employee_details($user_id){
     $ci = & get_instance();
-    $query = $ci->db->get_where('tms_users', array('user_role' => 'technician', 'user_id' => $user_id));
+    $query = $ci->db->get_where('tms_users', array('user_role' => 'Technician', 'user_id' => $user_id));
     return $query->row();
 }
 
@@ -308,10 +337,21 @@ function get_ticket_status($status){
 
 }
 
-function get_user_status_html($user_status){
+function get_user_status_html($user_status)
+{
 
-    switch ($user_status) {
-        case '1':
+    switch ($user_status) 
+    {
+        case 'Active':
+            $status_html = '<span class="badge badge-success">Active</span>';
+            break;
+        case 'Inactive':
+            $status_html = '<span class="badge badge-danger-light">Inactive</span>';
+            break;
+        case 'Deleted':
+            $status_html = '<span class="badge badge-warning">Deleted</span>';
+            break;
+         case '1':
             $status_html = '<span class="badge badge-success">Active</span>';
             break;
         case '2':
@@ -320,12 +360,10 @@ function get_user_status_html($user_status){
         case '0':
             $status_html = '<span class="badge badge-warning">Deleted</span>';
             break;
-        
         default:
             $status_html = '<span class="badge badge-success">Active</span>';
             break;
     }
-
     return $status_html;
 }
 
@@ -337,7 +375,6 @@ FUNCTION TO SEND EMAIL
 function send_email($to = '', $from = '', $subject = '', $body = ''){
 
     $ci = & get_instance();
-
     $from_email = (!empty($from)) ? $from : "helpdesk@purecss.co.in";
     $to_email = $to;
     //Load email library
@@ -347,7 +384,49 @@ function send_email($to = '', $from = '', $subject = '', $body = ''){
     $ci->email->subject('Ticket ID MTN20220730_11 - Maridd Telecom HelpDesk');
     $ci->email->message('The email send using codeigniter library');
     //Send mail
-    if($ci->email->send()){
+    $success = $ci->email->send();
+    if(!$success)
+    {
+        print_r($ci->email->print_debugger(array("subject")));die;
+    }
+    else
+    {
         return true;
     }
+}
+/*===================================================================
+FUNCTION TO GET COMPANY LIST
+====================================================================*/
+
+function get_company_list()
+{
+    $ci = & get_instance();
+    $query = $ci->db->get_where('tms_company');
+    return $query->result();
+}
+
+function get_company_details($company_id)
+{
+    $ci = & get_instance();
+    $query = $ci->db->get_where('tms_company', array('company_id' => $company_id));
+    return $query->row();
+}
+/*=====================================================================
+FUNCTION TO GENERATE COMPANY ID
+=====================================================================*/
+
+function get_company_id($id)
+{
+    $prefix = 'COM'.date('Ymd').'_';  
+    return $prefix.$id;
+}
+/*=====================================================================
+FUNCTION TO GENERATE COMPANY OWNER DETAILS
+=====================================================================*/
+
+function get_company_owner_details($company_id){
+    $ci = & get_instance();
+    $query = $ci->db->get_where('tms_users', array('user_role' => 'Admin', 'company_id' => $company_id));
+    return $query->row();
+
 }

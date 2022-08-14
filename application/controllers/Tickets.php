@@ -16,7 +16,8 @@ class Tickets extends CI_Controller {
         $this->load->model('TicketsModel');
     }
 	
-	public function index(){
+	public function index()
+    {
         $u_id = $this->session->userdata('user_id');
 
         if(!empty($u_id)){
@@ -24,12 +25,14 @@ class Tickets extends CI_Controller {
         }
 	}
 
-    public function create_tickets(){
+    public function create_tickets()
+    {
         $data = array('data' => array('page_title' => 'Create Ticket'));
         $this->load->view('tickets/create-ticket', $data);
     }
 
-    public function process_create_ticket(){
+    public function process_create_ticket()
+    {
 
         $ticket_title = $this->input->post('subject');
         $ticket_user = $this->input->post('ticket_user');
@@ -77,7 +80,8 @@ class Tickets extends CI_Controller {
         echo return_response($result);
     }
 
-    public function view_ticket($id = NULL, $ticket_id = NULL){
+    public function view_ticket($id = NULL, $ticket_id = NULL)
+    {
         //echo $id;
         $view_ticket_data = $this->TicketsModel->view_ticket($id);
         $data = array('data' => array('page_title' => 'Ticket ID : '.$ticket_id, 'ticket_data' => $view_ticket_data, 'ticket_id' => $id));
@@ -85,13 +89,15 @@ class Tickets extends CI_Controller {
         $this->load->view('tickets/view-ticket', $data);
     }
 
-    public function process_ticket_chat(){
+    public function process_ticket_chat()
+    {
         
         $ticket_id = $this->input->post('ticket_id');
         $ticket_data = $this->TicketsModel->view_ticket($ticket_id);
 
         
-        if($ticket_data->status !== 'Solved'){
+        if($ticket_data->status !== 'Solved')
+        {
             $ticket_chat = $this->input->post('ticket_chat');
         }
 
@@ -99,14 +105,16 @@ class Tickets extends CI_Controller {
 
         $file_name = (!empty($_FILES['ticket_attachment']['name'])) ? 'ticket_attachment' : '';
 
-        if($ticket_data->status !== 'Solved'){
+        if($ticket_data->status !== 'Solved')
+        {
             if(empty($ticket_chat)){
                 $data = array('status' => 0, 'msg' => 'Please Enter your reply');
                 echo return_response($data);
                 die();
             }
         }
-        if(empty($ticket_status)){
+        if(empty($ticket_status))
+        {
             $data = array('status' => 0, 'msg' => 'Please select a ticket status');
             echo return_response($data);
             die();
@@ -123,7 +131,8 @@ class Tickets extends CI_Controller {
             'user_id' => get_current_user_id(),
         );
 
-        if($ticket_data->status !== 'Solved'){
+        if($ticket_data->status !== 'Solved')
+        {
             $data['ticket_chat'] = $ticket_chat;
         }
 
@@ -136,7 +145,8 @@ class Tickets extends CI_Controller {
 
     }
 
-    public function set_ticket_category(){
+    public function set_ticket_category()
+    {
         $ticket_id = $this->input->post('ticket_id');
         $category = $this->input->post('category');
 
@@ -161,7 +171,8 @@ class Tickets extends CI_Controller {
         die();
     }
 
-    public function set_ticket_priority(){
+    public function set_ticket_priority()
+    {
         $ticket_id = $this->input->post('ticket_id');
         $priority = $this->input->post('priority');
 
@@ -227,11 +238,11 @@ class Tickets extends CI_Controller {
         $this->load->view();
     }*/
 
-    public function all_tickets(){
+    public function all_tickets()
+    {
         $user_details = tm_get_current_user();
         $user_id = $user_details->user_id;
         $user_role = $user_details->user_role;
-        
 
         $result = $this->TicketsModel->get_all_tickets($user_id, $user_role);
 
@@ -240,13 +251,15 @@ class Tickets extends CI_Controller {
         $this->load->view('tickets/all-tickets', $data);
     }
 
-    public function active_tickets(){
+    public function active_tickets()
+    {
         $active_ticket_data = $this->get_tickets_with_status('new');
         $data = array('data' => array('page_title' => 'Active Tickets', 'ticket_data' => $active_ticket_data));
         $this->load->view('tickets/active-tickets', $data);
     }
 
-    public function closed_tickets(){
+    public function closed_tickets()
+    {
         $closed_ticket_data = $this->get_tickets_with_status('Solved');
         $data = array('data' => array('page_title' => 'Closed Tickets', 'ticket_data' => $closed_ticket_data));
         $this->load->view('tickets/closed-tickets', $data);
@@ -259,7 +272,7 @@ class Tickets extends CI_Controller {
     }
 
     public function onhold_tickets(){
-        $onhold_ticket_data = $this->get_tickets_with_status('ohhold');
+        $onhold_ticket_data = $this->get_tickets_with_status('On-Hold');
         $data = array('data' => array('page_title' => 'On-Hold Tickets', 'ticket_data' => $onhold_ticket_data));
         $this->load->view('tickets/onhold-tickets', $data);
     }

@@ -22,7 +22,7 @@ $user_details = tm_get_current_user();
                     <img src="<?php echo base_url() ?>/assets/images/common/user-profile-image.png"
                         class="avatar-xxl rounded-circle mb-1" alt="default">
                     <?php } else { ?>
-                    <img src="<?php echo base_url().$user_details->user_image ?>"
+                    <img src="<?php echo base_url().'uploads/'.$user_details->user_image ?>"
                         class="avatar-xxl rounded-circle mb-1" alt="default">
                     <?php } ?>
                 </div>

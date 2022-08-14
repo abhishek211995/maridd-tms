@@ -23,16 +23,17 @@ $this->load->view('common/header', $data);
             <div class="row">
                 <?php 
                     $user_details = tm_get_current_user();
+                    $company_details = get_company_details($user_details->company_id);
                 ?>
                 <div class="col-xl-3 col-lg-4 col-md-12">
                     <div class="card user-pro-list overflow-hidden">
                         <div class="card-body">
                             <div class="user-pic text-center">
                             <?php if(empty($user_details->user_image)){ ?>
-                                <img src="../assets/images/common/user-profile.png"
-                                    class="avatar-xxl rounded-circle mb-1" alt="default">
+                                <img src="<?php echo base_url() ?>/assets/images/common/user-profile-image.png"
+                        class="avatar-xxl rounded-circle mb-1" alt="default">
                                 <?php } else { ?>
-                                <img src="<?php echo base_url().$user_details->user_image ?>"
+                                <img src="<?php echo base_url().'uploads/'.$user_details->user_image ?>"
                                     class="avatar-xxl rounded-circle mb-1" alt="default">
                                 <?php } ?>
 
@@ -117,7 +118,7 @@ $this->load->view('common/header', $data);
                         </div>
                     </div>
                 </div>
-                    <div class="col-xl-9 col-lg-8 col-md-12">
+                <div class="col-xl-9 col-lg-8 col-md-12">
                         <div class="card ">
                             <div class="card-header border-0">
                                 <h4 class="card-title"> Profile Details</h4>
@@ -177,9 +178,9 @@ $this->load->view('common/header', $data);
                                                 <div class="input-group file-browser">
                                                     <input class="form-control" value="<?php echo $user_details->user_image ?>" name="user_profile_image" type="file" accept="image/png, image/jpeg,image/jpg">
                                                 </div>
-                                                <?php if(!empty($user_details->user_image)){ ?>
+                                                <?php if(!empty($user_details->user_image)){?>
                                                 <div class="user-pic">
-                                                    <img src="<?php echo base_url().$user_details->user_image ?>" class="avatar-xl rounded-md mb-1" alt="default">
+                                                    <img src="<?php echo base_url().'uploads/'.$user_details->user_image ?>" class="avatar-xl rounded-md mb-1" alt="default">
                                                 </div>
                                                 <?php } ?>
                                                 <small class="text-muted"><i>The file size should not be more than 5MB</i></small>
@@ -193,6 +194,138 @@ $this->load->view('common/header', $data);
                                 </div>
                             </form>
                         </div>
+                        <?php if($this->session->userdata('user_role') == 'Admin'){ ?>
+                            <?php if($user_details->company_id != 0){?>
+                            <div class="card ">
+                                <div class="card-header border-0">
+                                    <h4 class="card-title"> Company Details</h4>
+                                </div>
+                                <form id="updatecompany" method="post">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label"> Company ID <span class="text-red">*</span></label>
+                                                    <label class="form-label">  <?php echo $company_details->company_unique_id ?></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label"> Company Name <span class="text-red">*</span></label>
+                                                    <input type="text" class="form-control" name="lastname" required value="<?php echo $company_details->company_name ?>">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label"> Company Email <span class="text-red">*</span></label>
+                                                    <input type="email" class="form-control" name="user_email" required value="<?php echo $company_details->company_email ?>">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label"> Company Mobile </label>
+                                                    <input type="text" required class="form-control " name="user_phone" value="<?php echo $company_details->company_mobile ?>">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label"> Company Address</label>
+                                                    <input type="text" class="form-control" value="<?php echo $company_details->company_address; ?>" name="user_address">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Company Status<span class="text-red">*</span></label>
+                                                    <select name="company_status" class="form-control">
+                                                        <?php if($company_details->status == 'Active'){?>
+                                                            <option value="">--Select Status--</option>
+                                                            <option value="Active" selected>Active</option>
+                                                            <option value="Inactive">Inactive</option>
+                                                        <?php }else if($company_details->status == 'Inactive'){?>
+                                                            <option value="">--Select Status--</option>
+                                                            <option value="Active">Active</option>
+                                                            <option value="Inactive" selected>Inactive</option>
+                                                        <?php }else{?>
+                                                            <option value="" selected>--Select Status--</option>
+                                                            <option value="Active">Active</option>
+                                                            <option value="Inactive">Inactive</option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label"> Total Users </label>
+                                                    <label class="form-label">  <?php echo $company_details->total_users ?></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label"> Total Technician </label>
+                                                    <label class="form-label">  <?php echo $company_details->total_technician ?></label>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <div class="card-footer text-end">
+                                        <input type="hidden" id="csrfname" class="csrfname" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
+                                        <button type="submit" id="updateprofilebtn" class="btn btn-secondary">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <?php }else{ ?>
+                                <div class="card ">
+                                <div class="card-header border-0">
+                                    <h4 class="card-title"> Company Details</h4>
+                                </div>
+                                <form id="addcompany_v1" method="post">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label"> Company Name <span class="text-red">*</span></label>
+                                                    <input type="text" class="form-control" name="company_name" required value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label"> Company Email <span class="text-red">*</span></label>
+                                                    <input type="email" class="form-control" name="company_email" required value="">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label"> Company Mobile </label>
+                                                    <input type="text" required class="form-control " name="company_phone_number">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label"> Company Address</label>
+                                                    <input type="text" class="form-control" name="company_address_name">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Company Status<span class="text-red">*</span></label>
+                                                    <select name="company_status" class="form-control">
+                                                            <option value="">--Select Status--</option>
+                                                            <option value="Active">Active</option>
+                                                            <option value="Inactive">Inactive</option>
+                                                        
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                    </div>
+                                    <div class="card-footer text-end">
+                                        <input type="hidden" id="user_role" name="user_role" value="Admin">
+                                        <input type="hidden" id="csrfname" class="csrfname" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
+                                        <button type="submit" id="addcompany_v1btn" class="btn btn-secondary">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <?php } ?>
+                        <?php } ?>
                         <div class="card">
                             <form method="POST" id="updatepassword" action="">
                                 <div class="card-header border-0">
@@ -236,9 +369,9 @@ $this->load->view('common/header', $data);
                                 </div>
                             </form>
                         </div>
-                    </div>
                 </div>
             </div>
+        </div>
 
             <?php
     $this->load->view('common/footer'); ?>

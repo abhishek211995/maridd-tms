@@ -487,7 +487,7 @@ jQuery(document).ready(function(){
         submitHandler: function(form) {
 
             jQuery.ajax({
-                url: localized_data.ajax_url+'Customers/process_edit_customer',
+                url: localized_data.ajax_url+'Customers/process_create_customer',
                 type: "POST",          
                 dataType: "json",
                 beforeSend: function () {
@@ -510,6 +510,183 @@ jQuery(document).ready(function(){
                         }, 2000);
                         
                     } else {
+                        toastify(data.msg, 'danger', 10000);
+                    }
+                    document.getElementById("csrfname").value = data.hash;
+                }
+            });
+            return false;
+        },
+        
+    });
+});
+
+/*==========================================================
+USER EDIT FORM VALIDATION
+==========================================================*/
+
+
+jQuery(document).ready(function(){
+    jQuery("#edituser").validate({
+        submitHandler: function(form) {
+
+            jQuery.ajax({
+                url: localized_data.ajax_url+'Customers/process_edit_customer',
+                type: "POST",          
+                dataType: "json",
+                beforeSend: function () {
+                    jQuery("#adduserbtn").html("<i class='bx bx-loader-alt bx-spin'></i>");
+                    jQuery("#adduserbtn").attr('disabled', 'disabled');
+                },
+                complete: function (response) {
+                    jQuery("#adduserbtn").html("Register");
+                    jQuery("#adduserbtn").removeAttr('disabled', 'disabled');
+                },
+                data: jQuery('#edituser').serialize(),
+                success: function(data) {
+                    //jQuery('.csrfname').val(localized_data.csrf_tms_name);
+
+                    if(data.status == 1){
+                        toastify(data.msg, 'success', 10000);
+                        $("#edituser")[0].reset();
+                        setTimeout(function(){ 
+                            window.location.href = localized_data.ajax_url+'/dashboard/all-customers';
+                        }, 2000);
+                        
+                    } else {
+                        toastify(data.msg, 'danger', 10000);
+                    }
+                    document.getElementById("csrfname").value = data.hash;
+                }
+            });
+            return false;
+        },
+        
+    });
+});
+
+/*==========================================================
+COMPANY REGISTRATION FORM VALIDATION
+==========================================================*/
+
+
+jQuery(document).ready(function(){
+    jQuery("#addcompany").validate({
+        submitHandler: function(form) {
+
+            jQuery.ajax({
+                url: localized_data.ajax_url+'Company/process_add_company',
+                type: "POST",          
+                dataType: "json",
+                beforeSend: function () {
+                    jQuery("#addcompanybtn").html("<i class='bx bx-loader-alt bx-spin'></i>");
+                    jQuery("#addcompanybtn").attr('disabled', 'disabled');
+                },
+                complete: function (response) {
+                    jQuery("#addcompanybtn").html("Register");
+                    jQuery("#addcompanybtn").removeAttr('disabled', 'disabled');
+                },
+                data: jQuery('#addcompany').serialize(),
+                success: function(data) {
+                    
+                    if(data.status == 1)
+                    {
+                        toastify(data.msg, 'success', 10000);
+                        $("#addcompany")[0].reset();
+                        setTimeout(function(){ 
+                            window.location.href = localized_data.ajax_url+'/dashboard/all-companies';
+                        }, 2000);
+                        
+                    }
+                    else 
+                    {
+                        toastify(data.msg, 'danger', 10000);
+                    }
+                    document.getElementById("csrfname").value = data.hash;
+                }
+            });
+            return false;
+        },
+        
+    });
+});
+/*==========================================================
+COMPANY EDIT FORM VALIDATION
+==========================================================*/
+
+
+jQuery(document).ready(function(){
+    jQuery("#editcompany").validate({
+        submitHandler: function(form) {
+
+            jQuery.ajax({
+                url: localized_data.ajax_url+'Company/process_edit_company',
+                type: "POST",          
+                dataType: "json",
+                beforeSend: function () {
+                    jQuery("#editcompanybtn").html("<i class='bx bx-loader-alt bx-spin'></i>");
+                    jQuery("#editcompanybtn").attr('disabled', 'disabled');
+                },
+                complete: function (response) {
+                    jQuery("#editcompanybtn").html("Register");
+                    jQuery("#editcompanybtn").removeAttr('disabled', 'disabled');
+                },
+                data: jQuery('#editcompany').serialize(),
+                success: function(data) {
+                    
+                    if(data.status == 1){
+                        toastify(data.msg, 'success', 10000);
+                        $("#editcompany")[0].reset();
+                        setTimeout(function(){ 
+                            window.location.href = localized_data.ajax_url+'/dashboard/all-companies';
+                        }, 1000);
+                        
+                    } else {
+                        toastify(data.msg, 'danger', 10000);
+                    }
+                    document.getElementById("csrfname").value = data.hash;
+                }
+            });
+            return false;
+        },
+        
+    });
+});
+/*==========================================================
+COMPANY REGISTRATION FORM VALIDATION PROFILE
+==========================================================*/
+
+
+jQuery(document).ready(function(){
+    jQuery("#addcompany_v1").validate({
+        submitHandler: function(form) {
+
+            jQuery.ajax({
+                url: localized_data.ajax_url+'Company/process_add_company_profile',
+                type: "POST",          
+                dataType: "json",
+                beforeSend: function () {
+                    jQuery("#addcompany_v1btn").html("<i class='bx bx-loader-alt bx-spin'></i>");
+                    jQuery("#addcompany_v1btn").attr('disabled', 'disabled');
+                },
+                complete: function (response) {
+                    jQuery("#addcompany_v1btn").html("Register");
+                    jQuery("#addcompany_v1btn").removeAttr('disabled', 'disabled');
+                },
+                data: jQuery('#addcompany_v1').serialize(),
+                success: function(data) {
+                    
+                    if(data.status == 1)
+                    {
+                        toastify(data.msg, 'success', 10000);
+                        $("#addcompany_v1")[0].reset();
+                        setTimeout(function(){ 
+                            window.location.href = localized_data.ajax_url+'/dashboard/profile';
+                        }, 2000);
+                        
+                    }
+                    else 
+                    {
                         toastify(data.msg, 'danger', 10000);
                     }
                     document.getElementById("csrfname").value = data.hash;

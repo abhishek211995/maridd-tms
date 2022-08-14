@@ -1,13 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class TicketsModel extends CI_Model {
-
+class TicketsModel extends CI_Model 
+{
     public function create_ticket($data)
     {
         $ticket_data = array(
             'ticket_title' => $data['ticket_title'],
             'ticket_category' => $data['ticket_category'],
+            'company_id' => $this->session->userdata('user_company'),
             'user' => $data['user'],
             'status' => $data['status'],
             'created_by' => $data['created_by'],
@@ -73,20 +74,38 @@ class TicketsModel extends CI_Model {
         }
     }
 
-    public function get_all_tickets($user_id, $user_role){
+    public function get_all_tickets($user_id, $user_role)
+    {
+        $user_company = $this->session->userdata('user_company');
+
         $this->db->select('*');
         $this->db->from('tms_tickets');
-        if($user_role !== 'superadmin' && $user_role !== 'technician'){
+        
+        if($user_role == 'User'){
             $this->db->where('user', get_current_user_id());
         }
-        
-        if($user_role == 'technician'){
+        else if($user_role == 'Technician')
+        {
             $this->db->where('assigned_employee', get_current_user_id());
+        }else if($user_role == 'Admin' && intval($user_company) > 0)
+        {
+            $this->db->where('company_id', $user_company);
         }
+        else if($user_role == 'Superadmin')
+        {
+            $this->db->where(array('company_id' => 0));
+        }
+        else
+        {
+            $this->db->where('1 !=', 1);
+        }
+
+        
 
         $this->db->order_by('added_date', 'DESC');
         $result = $this->db->get();
-
+        // print_r($user_role);
+        // print_r($this->db->last_query());die;
         return $result;
     }
 
@@ -202,28 +221,41 @@ class TicketsModel extends CI_Model {
     }
 
 
-    public function get_tickets($status){
-
+    public function get_tickets($status)
+    {
         $user_role = $this->session->userdata('user_role');
+        $user_company = $this->session->userdata('user_company');
 
         $this->db->select('*');
         $this->db->from('tms_tickets');
 
-        if($user_role !== 'superadmin' && $user_role !== 'technician'){
+        if($user_role !== 'Superadmin' && $user_role !== 'Technician' && $user_role !== 'Admin')
+        {
             $this->db->where(array('user' => get_current_user_id(), 'status' => $status));
         }
         
-        if($user_role == 'technician'){
+        if($user_role == 'Technician')
+        {
             $this->db->where(array('assigned_employee' => get_current_user_id(), 'status' => $status));
         }
 
-        if($user_role == 'superadmin'){
-            $this->db->where(array('status' => $status));
+        if($user_role == 'Superadmin')
+        {
+            $this->db->where(array('status' => $status,'company_id' => 0));
+        }
+
+        if($user_role == 'Admin' && intval($user_company) > 0)
+        {
+            $this->db->where(array('status' => $status,'company_id' => $user_company));
+        }
+        else
+        {
+            $this->db->where('1 !=', 1);
         }
 
         $this->db->order_by('added_date', 'DESC');
         $result = $this->db->get()->result();
-
+        
         return $result;
     }
 

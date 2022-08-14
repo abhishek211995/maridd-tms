@@ -68,6 +68,11 @@ $this->load->view('common/header', $data);
 											</div>
 										</div>
 									</div>
+										<?php 
+                                        	if($this->session->userdata('user_role') != 'Admin')
+                                        	{
+
+                                      	?>
                                     <div class="form-group ">
 									    <div class="row">
 											<div class="col-md-3">
@@ -81,6 +86,9 @@ $this->load->view('common/header', $data);
 											</div>
 										</div>
 									</div>
+									 	<?php 
+                                        	}
+                                      	?>
                                     <div class="form-group ">
 									    <div class="row">
 											<div class="col-md-3">
@@ -91,6 +99,7 @@ $this->load->view('common/header', $data);
 											</div>
 										</div>
 									</div>
+										
                                 </div>
                                 <div class="card-footer text-end">
                                     <input type="hidden" id="csrfname" class="csrfname" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">

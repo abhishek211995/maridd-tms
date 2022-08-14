@@ -26,7 +26,7 @@ $this->load->view('common/header', $data);
                             <div class="card-header border-0">
                                 <h4 class="card-title"> Edit User</h4>
                             </div>
-                            <form id="adduser" method="post">
+                            <form id="edituser" method="post">
                                 <div class="card-body">
                                     <div class="form-group">
 									    <div class="row">
@@ -68,6 +68,11 @@ $this->load->view('common/header', $data);
 											</div>
 										</div>
 									</div>
+									<?php 
+                                        	if($this->session->userdata('user_role') != 'Admin')
+                                        	{
+
+                                      	?>
                                     <div class="form-group ">
 									    <div class="row">
 											<div class="col-md-3">
@@ -81,11 +86,14 @@ $this->load->view('common/header', $data);
 											</div>
 										</div>
 									</div>
+									<?php 
+                                        	}
+                                      	?>
                                 </div>
                                 <div class="card-footer text-end">
 									<input type="hidden" name="user_id" value="<?php echo $data['customer_details']->user_id; ?>">
                                     <input type="hidden" id="csrfname" class="csrfname" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
-                                    <button type="submit" id="adduserbtn" class="btn btn-secondary">Add User</button>
+                                    <button type="submit" id="adduserbtn" class="btn btn-secondary">Update User</button>
                                 </div>
                             </form>
                         </div>

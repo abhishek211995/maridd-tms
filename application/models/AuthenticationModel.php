@@ -18,6 +18,7 @@ class AuthenticationModel extends CI_Model {
                 'user_id'=> $query->user_id,
                 'user_email'=> $query->user_email,
                 'user_role' => $query->user_role,
+                'user_company' => $query->company_id,
             ));  
             return array('status' => 1,'msg' => 'Login Successfull. Redirecting. Please Wait...');
         } else {

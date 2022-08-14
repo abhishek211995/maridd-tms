@@ -68,6 +68,11 @@ $this->load->view('common/header', $data);
 											</div>
 										</div>
 									</div>
+									<?php 
+                                        	if($this->session->userdata('user_role') != 'Admin')
+                                        	{
+
+                                      	?>
                                     <div class="form-group ">
 									    <div class="row">
 											<div class="col-md-3">
@@ -81,6 +86,9 @@ $this->load->view('common/header', $data);
 											</div>
 										</div>
 									</div>
+									<?php 
+                                        	}
+                                      	?>
                                     <!--<div class="form-group ">
 									    <div class="row">
 											<div class="col-md-3">

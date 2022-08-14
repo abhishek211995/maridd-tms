@@ -65,8 +65,9 @@ $this->load->view('common/header', $data);
                                             <td><?php echo $c_data->user_first_name.' '.$c_data->user_last_name; ?></td>
                                             <td><?php echo $c_data->user_email; ?></td>
                                             <td><?php echo $c_data->user_phone ?></td>
-                                            <td><?php echo get_user_status_html($c_data->user_status) ?></td>
                                             <td><?php echo date('d-m-Y h:i:s', $c_data->added_date); ?></td>
+                                            <td><?php echo get_user_status_html($c_data->user_status) ?></td>
+                                            
                                             <td>
                                                 <div class="flex action-items">
                                                     <a href="<?php echo base_url() ?>dashboard/edit-customer/<?php echo $c_data->user_id ?>"><i class="fa fa-edit"></i></a>

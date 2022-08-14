@@ -241,7 +241,7 @@ $this->load->view('common/header', $data);
                                                     <td id="priorityid">
 
                                                         <?php echo get_ticket_priority($ticket_data->ticket_priority); ?>
-                                                        <?php if(get_current_user_role() == 'superadmin' || get_current_user_role() == 'admin'){ ?>
+                                                        <?php if(get_current_user_role() == 'Auperadmin' || get_current_user_role() == 'Admin'){ ?>
                                                             <?php if($ticket_data->status !== 'Solved'){ ?>
                                                         <button id="priority" data-toggle="modal" data-target="#AssignPriorityModal"
                                                             class="p-1 border border-primary br-7 text-white bg-primary ms-2">
@@ -291,7 +291,7 @@ $this->load->view('common/header', $data);
                                     //echo $current_user->user_role;
                                     ?>
                                     <?php 
-                                    if($current_user->user_role == 'superadmin'){ ?>
+                                    if($current_user->user_role == 'Superadmin' || $current_user->user_role == 'Admin'){ ?>
                                     <?php if($ticket_data->status !== 'Solved'){ ?>
                                         
                                     <?php if(empty($emp_id)) { ?>

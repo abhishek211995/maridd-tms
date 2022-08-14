@@ -25,7 +25,8 @@ class UserProfile extends CI_Controller {
         }
 	}
 
-    public function profile(){
+    public function profile()
+    {
         
         $data = array('data' => array('page_title' => 'Profile'));
 		$this->load->view('profile/profile', $data);
@@ -89,7 +90,8 @@ class UserProfile extends CI_Controller {
             //print_r($upload);
             //exit;
 
-            if($upload['status'] == 0){
+            if($upload['status'] == 0)
+            {
                 $data = array('status' => 0, 'msg' => $upload['msg']);
                 echo return_response($data);
                 die();
