@@ -119,81 +119,7 @@ $this->load->view('common/header', $data);
                     </div>
                 </div>
                 <div class="col-xl-9 col-lg-8 col-md-12">
-                        <div class="card ">
-                            <div class="card-header border-0">
-                                <h4 class="card-title"> Profile Details</h4>
-                            </div>
-                            <form id="updateprofile" method="post">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label"> First Name <span class="text-red">*</span></label>
-                                                <input type="text" class="form-control" name="firstname" required value="<?php echo $user_details->user_first_name ?>" autocomplete="off">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label"> Last Name <span class="text-red">*</span></label>
-                                                <input type="text" class="form-control" name="lastname" required value="<?php echo $user_details->user_last_name ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label"> Email address <span class="text-red">*</span></label>
-                                                <input type="email" class="form-control" name="user_email" required value="<?php echo $user_details->user_email ?>">
-                                            </div>
-                                        </div>
-                                        <!--<div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label">Gender <span class="text-red">*</span></label>
-                                                <select class="form-control select2" name="user_gender" required>
-                                                    <option label="Select Country"></option>
-                                                    <option value="Male" <?php echo ($user_details->user_gender == "Male") ? 'selected' : ''; ?>> Male</option>
-                                                    <option value="Female" <?php echo ($user_details->user_gender == "Female") ? 'selected' : ''; ?>> Female</option>
-                                                </select>
-                                            </div>
-                                        </div>-->
-                                        <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label"> Mobile Number</label>
-                                                <input type="text" required class="form-control " name="user_phone" value="<?php echo $user_details->user_phone ?>">
-                                            </div>
-                                        </div>
-                                        <!--<div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label"> Languages</label>
-                                                <input type="text" class="form-control" value="<?php echo $user_details->user_language; ?>" name="user_languages">
-                                            </div>
-                                        </div>-->
-                                        <div class="col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label class="form-label"> Address</label>
-                                                <input type="text" class="form-control" value="<?php echo $user_details->user_address; ?>" name="user_address">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Profile Image</label>
-                                                <div class="input-group file-browser">
-                                                    <input class="form-control" value="<?php echo $user_details->user_image ?>" name="user_profile_image" type="file" accept="image/png, image/jpeg,image/jpg">
-                                                </div>
-                                                <?php if(!empty($user_details->user_image)){?>
-                                                <div class="user-pic">
-                                                    <img src="<?php echo base_url().'uploads/'.$user_details->user_image ?>" class="avatar-xl rounded-md mb-1" alt="default">
-                                                </div>
-                                                <?php } ?>
-                                                <small class="text-muted"><i>The file size should not be more than 5MB</i></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer text-end">
-                                    <input type="hidden" id="csrfname" class="csrfname" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
-                                    <button type="submit" id="updateprofilebtn" class="btn btn-secondary">Save Changes</button>
-                                </div>
-                            </form>
-                        </div>
+                        
                         <?php if($this->session->userdata('user_role') == 'Admin'){ ?>
                             <?php if($user_details->company_id != 0){?>
                             <div class="card ">
@@ -326,6 +252,81 @@ $this->load->view('common/header', $data);
                             </div>
                             <?php } ?>
                         <?php } ?>
+                        <div class="card ">
+                            <div class="card-header border-0">
+                                <h4 class="card-title"> Profile Details</h4>
+                            </div>
+                            <form id="updateprofile" method="post">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label"> First Name <span class="text-red">*</span></label>
+                                                <input type="text" class="form-control" name="firstname" required value="<?php echo $user_details->user_first_name ?>" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label"> Last Name <span class="text-red">*</span></label>
+                                                <input type="text" class="form-control" name="lastname" required value="<?php echo $user_details->user_last_name ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label"> Email address <span class="text-red">*</span></label>
+                                                <input type="email" class="form-control" name="user_email" required value="<?php echo $user_details->user_email ?>">
+                                            </div>
+                                        </div>
+                                        <!--<div class="col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Gender <span class="text-red">*</span></label>
+                                                <select class="form-control select2" name="user_gender" required>
+                                                    <option label="Select Country"></option>
+                                                    <option value="Male" <?php echo ($user_details->user_gender == "Male") ? 'selected' : ''; ?>> Male</option>
+                                                    <option value="Female" <?php echo ($user_details->user_gender == "Female") ? 'selected' : ''; ?>> Female</option>
+                                                </select>
+                                            </div>
+                                        </div>-->
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label"> Mobile Number</label>
+                                                <input type="text" required class="form-control " name="user_phone" value="<?php echo $user_details->user_phone ?>">
+                                            </div>
+                                        </div>
+                                        <!--<div class="col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label"> Languages</label>
+                                                <input type="text" class="form-control" value="<?php echo $user_details->user_language; ?>" name="user_languages">
+                                            </div>
+                                        </div>-->
+                                        <div class="col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <label class="form-label"> Address</label>
+                                                <input type="text" class="form-control" value="<?php echo $user_details->user_address; ?>" name="user_address">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Profile Image</label>
+                                                <div class="input-group file-browser">
+                                                    <input class="form-control" value="<?php echo $user_details->user_image ?>" name="user_profile_image" type="file" accept="image/png, image/jpeg,image/jpg">
+                                                </div>
+                                                <?php if(!empty($user_details->user_image)){?>
+                                                <div class="user-pic">
+                                                    <img src="<?php echo base_url().'uploads/'.$user_details->user_image ?>" class="avatar-xl rounded-md mb-1" alt="default">
+                                                </div>
+                                                <?php } ?>
+                                                <small class="text-muted"><i>The file size should not be more than 5MB</i></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-end">
+                                    <input type="hidden" id="csrfname" class="csrfname" name="<?= $this->security->get_csrf_token_name(); ?>" value="<?= $this->security->get_csrf_hash(); ?>">
+                                    <button type="submit" id="updateprofilebtn" class="btn btn-secondary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
                         <div class="card">
                             <form method="POST" id="updatepassword" action="">
                                 <div class="card-header border-0">

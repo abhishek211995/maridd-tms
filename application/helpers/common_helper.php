@@ -420,13 +420,58 @@ function get_company_id($id)
     $prefix = 'COM'.date('Ymd').'_';  
     return $prefix.$id;
 }
+
 /*=====================================================================
 FUNCTION TO GENERATE COMPANY OWNER DETAILS
 =====================================================================*/
 
-function get_company_owner_details($company_id){
+function get_company_owner_details($company_id)
+{
     $ci = & get_instance();
     $query = $ci->db->get_where('tms_users', array('user_role' => 'Admin', 'company_id' => $company_id));
     return $query->row();
 
+}
+
+/*=====================================================================
+FUNCTION TO GENERATE COMPANY OWNER DETAILS
+=====================================================================*/
+
+function get_last5_tickets()
+{
+    $ci = & get_instance();
+    $query = $ci->db->get_where('tms_tickets');
+    return $query->row_array();
+}
+
+
+function get_dashboard_count($role)
+{
+    $ci = & get_instance();
+    $user_company = $ci->session->userdata('user_company');
+    $result = 0;
+    if($role == 'Company')
+    {
+        $ci->db->select('*');
+        $ci->db->from('tms_company');
+        $result = $ci->db->get()->row_array();
+    }
+    else if($role == 'User')
+    {
+        $query = $ci->db->get_where('tms_users', array('user_role' => 'User','company_id' => $user_company), 1, 0);
+        $result = $query->row_array();
+    }
+    else if($role == 'Technician')
+    {
+        $query = $ci->db->get_where('tms_users', array('user_role' => 'Technician','company_id' => $user_company), 1, 0);
+        $result = $query->row_array();
+    }
+    else if($role == 'Ticket')
+    {
+        $query = $ci->db->get_where('tms_tickets');
+        $result = $query->row_array();
+    }
+    print_r($ci->db->last_query());
+
+    return count($result);
 }

@@ -3,10 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class CompanyModel extends CI_Model {
 
-    public function get_all_companies()
+    public function get_all_companies($limit = '')
     {
         $this->db->select('*');
         $this->db->from('tms_company');
+        if(!empty($limit))
+        {
+            $this->db->limit(5);
+        }
         return $this->db->get()->result();
     }
     

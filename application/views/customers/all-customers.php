@@ -19,9 +19,32 @@ $this->load->view('common/header', $data);
                     <h4 class="page-title"><span
                             class="font-weight-normal text-muted ms-2"><?php echo $data['page_title']; ?></span></h4>
                 </div>
-                <div class="page-rightheader">
-                <a href="<?php echo base_url(); ?>dashboard/create-customer" class="btn btn-green">Add Customer</a>
-                </div>
+                <?php if($this->session->userdata('user_role') != '')
+                {
+                ?>
+                    <?php if($this->session->userdata('user_role') == 'Admin')
+                    { 
+                        if($this->session->userdata('user_company') != '')
+                        {
+                    ?>
+                        <div class="page-rightheader">
+                        <a href="<?php echo base_url(); ?>dashboard/create-customer" class="btn btn-green">Add Customer</a>
+                        </div>
+                    <?php 
+                        }
+                    }
+                    else
+                    {
+                    ?>
+                    <div class="page-rightheader">
+                        <a href="<?php echo base_url(); ?>dashboard/create-customer" class="btn btn-green">Add Customer</a>
+                        </div>
+                    <?php 
+                    }
+                    ?>
+                <?php 
+                }
+                ?>
             </div>
             <div class="row">
                 <?php 
@@ -39,49 +62,123 @@ $this->load->view('common/header', $data);
                                 <h4 class="card-title"> Customers</h4>
                                 
                             </div>
-                            <div class="card-body">
-                                <table class="datatableInt table table-vcenter text-nowrap table-bordered table-striped w-100">
-                                    <thead>
-                                        <tr>
-                                            <th>Sr No</th>
-                                            <th>#ID</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone Number</th>
-                                            <th>Created Date</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
-                                        $i = 1;
-                                        foreach($data['customer_data'] as $c_data){ 
-                                            
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $i ?></td>
-                                            <td><?php echo $c_data->user_id ?></td>
-                                            <td><?php echo $c_data->user_first_name.' '.$c_data->user_last_name; ?></td>
-                                            <td><?php echo $c_data->user_email; ?></td>
-                                            <td><?php echo $c_data->user_phone ?></td>
-                                            <td><?php echo date('d-m-Y h:i:s', $c_data->added_date); ?></td>
-                                            <td><?php echo get_user_status_html($c_data->user_status) ?></td>
-                                            
-                                            <td>
-                                                <div class="flex action-items">
-                                                    <a href="<?php echo base_url() ?>dashboard/edit-customer/<?php echo $c_data->user_id ?>"><i class="fa fa-edit"></i></a>
-                                                    <a href="<?php echo base_url() ?>dashboard/edit-customer/<?php echo $c_data->user_id ?>"><i class="fa fa-eye"></i></a>
-                                                    <a href="#"><i class="fa fa-trash"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <?php 
-                                    $i++;
-                                    } ?>
-                                    </tbody>
-                                </table>
-                            </div>
+
+
+                            <?php if($this->session->userdata('user_role') != '')
+                            {
+                            ?>
+                                <?php if($this->session->userdata('user_role') == 'Admin')
+                                { 
+                                    if($this->session->userdata('user_company') != '')
+                                    {
+
+                                ?>
+                                    <div class="card-body">
+                                        <table class="datatableInt table table-vcenter text-nowrap table-bordered table-striped w-100">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr No</th>
+                                                    <th>#ID</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone Number</th>
+                                                    <th>Created Date</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php 
+                                                $i = 1;
+                                                foreach($data['customer_data'] as $c_data){ 
+                                                    
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $i ?></td>
+                                                    <td><?php echo $c_data->user_id ?></td>
+                                                    <td><?php echo $c_data->user_first_name.' '.$c_data->user_last_name; ?></td>
+                                                    <td><?php echo $c_data->user_email; ?></td>
+                                                    <td><?php echo $c_data->user_phone ?></td>
+                                                    <td><?php echo date('d-m-Y h:i:s', $c_data->added_date); ?></td>
+                                                    <td><?php echo get_user_status_html($c_data->user_status) ?></td>
+                                                    
+                                                    <td>
+                                                        <div class="flex action-items">
+                                                            <a href="<?php echo base_url() ?>dashboard/edit-customer/<?php echo $c_data->user_id ?>"><i class="fa fa-edit"></i></a>
+                                                            <a href="<?php echo base_url() ?>dashboard/edit-customer/<?php echo $c_data->user_id ?>"><i class="fa fa-eye"></i></a>
+                                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <?php 
+                                            $i++;
+                                            } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                <?php 
+                                    }else{
+                                ?>
+                                    <div class="alert alert-danger" style="text-align: center;">
+                                        Please register your company before adding users and technicians.
+                                    </div>
+                                <?php
+                                    }
+                                }
+                                else
+                                {
+                                ?>
+                                <div class="card-body">
+                                        <table class="datatableInt table table-vcenter text-nowrap table-bordered table-striped w-100">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr No</th>
+                                                    <th>#ID</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone Number</th>
+                                                    <th>Created Date</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php 
+                                                $i = 1;
+                                                foreach($data['customer_data'] as $c_data){ 
+                                                    
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $i ?></td>
+                                                    <td><?php echo $c_data->user_id ?></td>
+                                                    <td><?php echo $c_data->user_first_name.' '.$c_data->user_last_name; ?></td>
+                                                    <td><?php echo $c_data->user_email; ?></td>
+                                                    <td><?php echo $c_data->user_phone ?></td>
+                                                    <td><?php echo date('d-m-Y h:i:s', $c_data->added_date); ?></td>
+                                                    <td><?php echo get_user_status_html($c_data->user_status) ?></td>
+                                                    
+                                                    <td>
+                                                        <div class="flex action-items">
+                                                            <a href="<?php echo base_url() ?>dashboard/edit-customer/<?php echo $c_data->user_id ?>"><i class="fa fa-edit"></i></a>
+                                                            <a href="<?php echo base_url() ?>dashboard/edit-customer/<?php echo $c_data->user_id ?>"><i class="fa fa-eye"></i></a>
+                                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <?php 
+                                            $i++;
+                                            } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <?php 
+                                }
+                                ?>
+                            <?php 
+                            }
+                            ?>
+
                         </div>
                     </div>
                 </div>

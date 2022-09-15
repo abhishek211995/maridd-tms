@@ -11,10 +11,10 @@ $user_details = tm_get_current_user();
     <div class="container-fluid">
         <div class="d-flex">
             <div class="app-sidebar__toggle" data-bs-toggle="sidebar">
-                <a class="open-toggle" href="#">
+                <a class="close-toggle" href="#">
                     <i class='bx bx-menu'></i>
                 </a>
-                <a class="close-toggle" href="#">
+                <a class="open-toggle" href="#">
                     <i class='bx bx-x'></i>
                 </a>
             </div>

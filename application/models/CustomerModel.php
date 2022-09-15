@@ -25,6 +25,7 @@ class CustomerModel extends CI_Model
         {
             $this->db->where('1 !=', 1);
         }
+        
         return $this->db->get()->result();
     }
 

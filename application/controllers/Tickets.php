@@ -244,7 +244,7 @@ class Tickets extends CI_Controller {
         $user_id = $user_details->user_id;
         $user_role = $user_details->user_role;
 
-        $result = $this->TicketsModel->get_all_tickets($user_id, $user_role);
+        $result = $this->TicketsModel->get_all_tickets($user_id, $user_role,'');
 
         $data = array('data' => array('page_title' => 'All Tickets', 'ticket_data' => $result->result()));
 

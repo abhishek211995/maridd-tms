@@ -74,14 +74,15 @@ class TicketsModel extends CI_Model
         }
     }
 
-    public function get_all_tickets($user_id, $user_role)
+    public function get_all_tickets($user_id, $user_role, $limit)
     {
         $user_company = $this->session->userdata('user_company');
 
         $this->db->select('*');
         $this->db->from('tms_tickets');
         
-        if($user_role == 'User'){
+        if($user_role == 'User')
+        {
             $this->db->where('user', get_current_user_id());
         }
         else if($user_role == 'Technician')
@@ -101,14 +102,18 @@ class TicketsModel extends CI_Model
             $this->db->where('1 !=', 1);
         }
 
-        
+        if(!empty($limit) && $limit != '')
+        {
+            $this->db->limit(5);
+        }
 
         $this->db->order_by('added_date', 'DESC');
         $result = $this->db->get();
         // print_r($user_role);
-        // print_r($this->db->last_query());die;
+        // print_r($res);die;
         return $result;
     }
+
 
     public function view_ticket($id){
         $this->db->select('*');
